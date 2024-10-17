@@ -1,0 +1,9 @@
+@import '../../../styles/variable.scss';
+
+.textarea {
+  color: $main-color-text;
+  background-color: $main-surface-secondary;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+}

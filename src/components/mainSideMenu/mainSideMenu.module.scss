@@ -1,0 +1,36 @@
+@import '../../styles/variable.scss';
+
+.nav {
+  height: fit-content;
+  min-width: 160px;
+  border-radius: 1px;
+}
+
+.menu {
+  list-style: none; /* Убираем точки у списка */
+  padding: 0;
+  margin: 0;
+}
+
+.menuItem {
+  margin-bottom: 10px; /* Отступы между пунктами меню */
+}
+
+.link {
+  display: flex; /* Делаем ссылку блочным элементом */
+  align-items: center;
+  padding: 10px; /* Внутренние отступы для ссылок */
+  text-decoration: none; /* Убираем подчеркивание текста */
+  color: #ececec; /* Цвет текста */
+  border-radius: 4px; /* Закругление углов */
+  height: 30px;
+  background-color: $sidebar-surface-primary;
+}
+
+.link:hover {
+  background-color: $sidebar-surface-secondary;
+}
+
+.active a {
+  background-color: $sidebar-surface-tertiary;
+}

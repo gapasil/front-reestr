@@ -1,0 +1,22 @@
+@import './variable.scss';
+
+.container-layout {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100vh;
+  padding: $padding-desktop;
+  padding-top: 80px;
+  padding-bottom: 20px;
+  overflow-x: hidden; // Скрываем горизонтальную прокрутку
+}
+.content-layout {
+  flex-grow: 1;
+  max-width: calc(100% - 40px);
+  width: 100%;
+  background-color: $main-surface-secondary;
+  margin: 0px 20px 0px 20px;
+  border-radius: 4px;
+  padding: 10px 30px 10px 30px;
+  overflow-x: hidden;
+}

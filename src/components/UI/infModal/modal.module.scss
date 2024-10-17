@@ -1,0 +1,68 @@
+@import '../../../styles/variable.scss';
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease; /* Анимация появления */
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modalContent {
+    background-color: $modal-surface-primary;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+    transform: scale(0.9);
+    opacity: 0;
+
+    &__active {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .progressBar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      background-color: $highlighted-text;
+      animation: progress 5s linear forwards;
+    }
+
+    @keyframes progress {
+      from {
+        width: 100%;
+      }
+      to {
+        width: 0;
+      }
+    }
+  }
+}

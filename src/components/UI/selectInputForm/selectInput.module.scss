@@ -1,0 +1,30 @@
+@import '../../../styles/variable.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  strong {
+    white-space: nowrap;
+  }
+  select {
+    background-color: $main-surface-secondary !important;
+    color: $main-color-text;
+    border: none; /* Disable border */
+    outline: none; /* Disable outline */
+
+    &:focus {
+      outline: none; /* Disable outline during focus */
+    }
+
+    &:active {
+      outline: none; /* Disable outline during active (click) */
+      box-shadow: none; /* Disable any shadow effects */
+    }
+  }
+}

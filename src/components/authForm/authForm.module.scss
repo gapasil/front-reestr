@@ -1,0 +1,73 @@
+@import '../../styles/variable.scss';
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px; /* Adjust to your preference */
+  margin: 0 auto; /* Center the form */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: $main-surface-primary;
+  z-index: 2;
+
+  label {
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+
+  input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: $main-surface-secondary;
+    margin-bottom: 10px;
+    color: $main-color-text;
+  }
+
+  span {
+    color: $highlighted-text-error; /* Error message color */
+  }
+
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50; /* Green */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+
+    &:hover {
+      background-color: #45a049; /* Darker green */
+    }
+  }
+}
+
+.toggle-button {
+  background-color: transparent;
+  color: #007bff; /* Blue */
+  border: none;
+  cursor: pointer;
+  text-align: left;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

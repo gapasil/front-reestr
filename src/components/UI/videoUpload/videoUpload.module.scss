@@ -1,0 +1,50 @@
+@import '../../../styles/variable.scss';
+
+.videoUpload {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+
+  .label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  .fileInput {
+    display: none; // Скрываем оригинальный input
+  }
+
+  .uploadButton {
+    background-color: #4caf50; /* Зеленый цвет */
+    color: white; /* Цвет текста */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    max-width: 250px;
+
+    &:hover {
+      background-color: #45a049; /* Цвет при наведении */
+    }
+  }
+
+  .previewContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 1rem;
+  }
+}
+
+.videoWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  video {
+    width: 250px;
+    height: 250px;
+  }
+}

@@ -1,0 +1,36 @@
+@import '../../styles/variable.scss';
+
+.adminButtonContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.confirmButton {
+  background-color: $button-color-primary;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.confirmButton:hover {
+  background-color: $button-color-hover;
+}
+
+.deleteButton {
+  background-color: rgb(158, 13, 13);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.deleteButton:hover {
+  background-color: rgb(127, 11, 11);
+}

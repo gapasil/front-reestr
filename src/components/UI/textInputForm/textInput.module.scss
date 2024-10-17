@@ -1,0 +1,14 @@
+@import '../../../styles/variable.scss';
+
+.wrapper {
+  margin-top: 10px;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  label {
+    white-space: nowrap;
+    padding-right: 5px;
+  }
+}
+///strong

@@ -1,0 +1,38 @@
+$padding-desktop: 0px 60px 0px 60px;
+$padding-tablet: 20px;
+$padding-mobile: 10px;
+
+$red-500: rgb(210, 17, 17);
+
+$green-600: #3c8b40;
+$green-500: #45a049;
+
+$gray-1000: #181818;
+$gray-900: #1a1a1a;
+$gray-800: #2e2e2e;
+$gray-750: #404040;
+$gray-700: #585858;
+$gray-650: #424242;
+$gray-600: #676767;
+
+$main-color-text: #ececec;
+
+$headerfooter-surface-primary: $gray-1000;
+$headerfooter-surface-secondary: $gray-900;
+$headerfooter-surface-tertiary: $gray-800;
+
+$main-surface-primary: $gray-800;
+$main-surface-secondary: $gray-750;
+$main-surface-tertiary: $gray-700;
+
+$sidebar-surface-primary: $gray-750;
+$sidebar-surface-secondary: $gray-700;
+$sidebar-surface-tertiary: $gray-600;
+
+$modal-surface-primary: $gray-650;
+
+$highlighted-text-error: $red-500;
+$highlighted-text: $green-500;
+
+$button-color-primary: $green-500;
+$button-color-hover: $green-600;
