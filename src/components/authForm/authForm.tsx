@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Control, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch, useAppSelector } from '@/hooks/ReduxHooks';
@@ -19,6 +19,8 @@ import { setItem } from '@/utils/localStorageUtils';
 import { schemaLogin, schemaRegistration } from '@/types/auth/schemaAuth';
 import { InputField } from '../UI/inputAuthFieldForm/inputFieldForm';
 import { SubmitButton } from '../UI/submitButtonForm/submitButtonForm';
+import { Captcha } from '../captcha/captcha';
+import { InputRegForm } from '../UI/inputRegForm/inputRegForm';
 
 type LoginFormData = z.infer<typeof schemaLogin>;
 type RegistrationFormData = z.infer<typeof schemaRegistration>;
@@ -30,6 +32,13 @@ const AuthForm: React.FC = () => {
   const [codeSent, setCodeSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [backendError, setBackendError] = useState<string | null>(null);
+
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null); // State for CAPTCHA
+  const [remove] = useState(false);
+
+  const captchaCb = (value: null | string) => {
+    setCaptchaValue(value);
+  };
 
   useEffect(() => {
     setBackendError(null);
@@ -76,6 +85,11 @@ const AuthForm: React.FC = () => {
         dispatch(setName(registerData.name || ''));
         // dispatch(setPhone(registerData.phone || ''));
 
+        if (!captchaValue) {
+          setBackendError('Пожалуйста, подтвердите, что вы не робот.');
+          return;
+        }
+
         if (!codeSent) {
           const resultAction = await dispatch(
             register({
@@ -83,6 +97,7 @@ const AuthForm: React.FC = () => {
               password: registerData.password,
               name: registerData.name || '',
               // phone: registerData.phone || '',
+              captchaValue: captchaValue,
             }),
           );
 
@@ -121,13 +136,13 @@ const AuthForm: React.FC = () => {
     }
   };
 
-  const onInvalid = (errors) => console.error(errors);
+  // const onInvalid = (errors) => console.error(errors);
 
   return (
     <div className={styles.wrapper} onClick={() => dispatch(toggleForm())}>
       <form
         className={styles.form}
-        onSubmit={handleSubmit(onSubmit, onInvalid)}
+        onSubmit={handleSubmit(onSubmit)}
         onClick={(e) => e.stopPropagation()}
       >
         <InputField
@@ -145,17 +160,17 @@ const AuthForm: React.FC = () => {
         />
         {!isLogin && (
           <>
-            <InputField
+            <InputRegForm
               label="Подтвердите Пароль"
               name="confirmPassword"
               type="password"
-              control={control}
+              control={control as Control<RegistrationFormData>}
               errors={errors}
             />
-            <InputField
+            <InputRegForm
               label="Имя"
               name="name"
-              control={control}
+              control={control as Control<RegistrationFormData>}
               errors={errors}
             />
             {/* <InputField
@@ -165,10 +180,10 @@ const AuthForm: React.FC = () => {
               errors={errors}
             /> */}
             {codeSent && (
-              <InputField
+              <InputRegForm
                 label="Код из email"
                 name="code"
-                control={control}
+                control={control as Control<RegistrationFormData>}
                 errors={errors}
               />
             )}
@@ -177,8 +192,8 @@ const AuthForm: React.FC = () => {
 
         {backendError && <div className="errorP">{backendError}</div>}
 
+        <Captcha cb={captchaCb} remove={remove} />
         <SubmitButton loading={loading} isLogin={isLogin} codeSent={codeSent} />
-
         <button
           type="button"
           className={styles.toggleButton}

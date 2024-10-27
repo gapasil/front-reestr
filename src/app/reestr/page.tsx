@@ -1,13 +1,17 @@
+'use client';
+
 import styles from './reestr.module.scss';
-import React from 'react';
+import React, { Suspense } from 'react';
 import CrudList from '@/components/crudList/crudList';
 
 const Reestr: React.FC = () => {
   return (
     <main>
-      <h1>Реестр нежелательных лиц</h1>
+      <h1 className="header-page">Реестр русофобов</h1>
       <div className={styles.containerCart}>
-        <CrudList />
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <CrudList />
+        </Suspense>
       </div>
     </main>
   );

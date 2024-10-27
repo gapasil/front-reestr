@@ -4,6 +4,8 @@ import { phoneRegex } from './regex';
 
 export type ExtendedCrud = Crud & {
   active: boolean;
+  parent_id?: string;
+  admin: boolean;
 };
 
 interface CrudProof {
@@ -14,7 +16,7 @@ interface CrudProof {
 export interface CrudCreate {
   id: string;
   name?: string;
-  age?: number;
+  // age?: number;
   gender?: string;
   birthdate?: string;
   birthplace?: string;
@@ -22,10 +24,10 @@ export interface CrudCreate {
   phone?: string;
   email?: string;
   address?: string;
-  socialmedia?: {
-    facebook?: string;
-    instagram?: string;
-  };
+  // socialmedia?: {
+  //   facebook?: string;
+  //   instagram?: string;
+  // };
   photourl: string[];
   videourl: string[];
   categories: Category[];
@@ -37,7 +39,7 @@ export interface CrudCreate {
 export interface Crud {
   id: string;
   name?: string;
-  age?: number;
+  // age?: number;
   gender?: string;
   birthdate?: string;
   birthplace?: string;
@@ -45,10 +47,10 @@ export interface Crud {
   phone?: string;
   email?: string;
   address?: string;
-  socialmedia?: {
-    facebook?: string;
-    instagram?: string;
-  };
+  // socialmedia?: {
+  //   facebook?: string;
+  //   instagram?: string;
+  // };
   photourl: string[];
   videourl: string[];
   categories: Category[];
@@ -63,17 +65,27 @@ enum Gender {
   Perforator = 'Перфоратор',
 }
 
+const phoneSchema = z.union([
+  z.literal(''), // Пустая строка допустима
+  z.string().regex(phoneRegex, { message: 'Некорректный номер телефона' }), // Валидация по regex
+]);
+
+const emailSchema = z.union([
+  z.literal(''), // Пустая строка допустима
+  z.string().email({ message: 'Некорректный email' }), // Валидация email
+]);
+
 export const CrudSchema = z.object({
   name: z
     .string()
     .min(1, { message: 'Введите имя' })
     .max(25, { message: 'Максимальное имя 25 символов' })
     .optional(),
-  age: z
-    .number()
-    .min(1, { message: 'Введите возраст' })
-    .max(120, { message: 'Превышен максимальный возраст' })
-    .optional(),
+  // age: z
+  //   .number()
+  //   .min(1, { message: 'Введите возраст' })
+  //   .max(120, { message: 'Превышен максимальный возраст' })
+  //   .optional(),
   gender: z
     .enum([Gender.Male, Gender.Female, Gender.Perforator])
     .or(z.literal('')) // Allow empty string as a valid input
@@ -101,47 +113,24 @@ export const CrudSchema = z.object({
   citizenship: z
     .string()
     .min(1, { message: 'Введите гражданство' })
-    .max(100, { message: 'Максимальное количествао символов 100' })
+    .max(100, { message: 'Максимальное количество символов 100' })
     .optional(),
-  phone: z
-    .string()
-    .regex(phoneRegex, { message: 'Некорректный номер телефона' })
-    .optional(),
-  email: z.string().email({ message: 'Некорректный email' }).optional(),
+  phone: phoneSchema.optional().nullable(), // Теперь phone может быть пустым или валидным номером
+  email: emailSchema.optional().nullable(),
   address: z.string().optional(),
-  socialMedia: z
-    .object({
-      facebook: z.string().optional(),
-      instagram: z.string().optional(),
-    })
-    .optional(),
-  photourl: z
-    .array(
-      z
-        .instanceof(File)
-        .refine((file) => file.size <= 5 * 1024 * 1024, {
-          message: 'Размер файла изображения не должен превышать 5MB',
-        }),
-    )
-    .max(10, 'Максимум 10 картинок'),
-  videourl: z
-    .array(
-      z
-        .instanceof(File)
-        .refine((file) => file.size <= 150 * 1024 * 1024, {
-          message: 'Размер файла видео не должен превышать 150MB',
-        }),
-    )
-    .max(2, 'Максимум 2 видео'),
+  // socialMedia: z
+  //   .object({
+  //     facebook: z.string().optional(),
+  //     instagram: z.string().optional(),
+  //   })
+  //   .optional(),
   categories: z
     .array(z.enum(Object.values(Categories) as [string, ...string[]]))
-    .min(1, { message: 'Выберите категорию' })
-    .optional(),
+    .min(1, { message: 'Выберите категорию' }),
   accusations: z
     .string()
     .min(50, { message: 'Минимум символов описания 50' })
-    .max(1000, { message: 'Превышен лимит символов' })
-    .optional(),
+    .max(10000, { message: 'Превышен лимит символов' }),
   proof: z
     .array(
       z.object({

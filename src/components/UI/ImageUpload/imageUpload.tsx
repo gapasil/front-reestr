@@ -6,6 +6,7 @@ interface ImageUploadProps {
   label: string;
   onImageChange: (files: File[] | null) => void; // Function to pass the selected files
   setPrev: boolean; // Prop to reset previews
+  lengthOldImage?: number;
 }
 
 const MAX_FILES = 10; // Maximum number of files allowed
@@ -14,18 +15,22 @@ const ImageUpload: FC<ImageUploadProps> = ({
   label,
   onImageChange,
   setPrev,
+  lengthOldImage,
 }) => {
-  const [files, setFiles] = useState<File[]>([]); // State to keep track of selected files
+  const [inputKey, setInputKey] = useState(0); // очистка кеша файлов для добавления прошлых картинок
+  const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]); // State for image previews
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
+    setInputKey((prevKey) => prevKey + 1);
     setFiles([]); // Reset files when setPrev changes
     setPreviews([]); // Reset previews when setPrev changes
   }, [setPrev]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
+
     const selectedFiles = e.target.files;
 
     if (selectedFiles) {
@@ -37,7 +42,9 @@ const ImageUpload: FC<ImageUploadProps> = ({
           !files.some((existingFile) => existingFile.name === file.name),
       );
 
-      if (files.length + newFiles.length > MAX_FILES) {
+      const lengOld = lengthOldImage ? lengthOldImage : 0;
+
+      if (lengOld + files.length + newFiles.length > MAX_FILES) {
         setError('Максимум 10 картинок');
         return;
       }
@@ -54,6 +61,8 @@ const ImageUpload: FC<ImageUploadProps> = ({
     }
   };
 
+  //////////////////////// ЧТОБЫ НАЖАТИЕ ВЫЗЫВАЛО СОБЫТИЕ КОТОРОЕ НАДО ИЛИ ПРИ ПЕРЕХОДЕ НА СОЗДАНИЕ КАЛ НАЧНЕТСЯ
+
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     document.getElementById('imageUpload')?.click(); // Trigger file input
@@ -62,6 +71,8 @@ const ImageUpload: FC<ImageUploadProps> = ({
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent event bubbling
   };
+
+  /////////////////////// ЧТОБЫ ВСПЛЫТИЕ ОСТАНАВЛИВАЛОСЬ И ВСЕ РАБОТАЛО КАК НАДО
 
   const removePreview = (index: number) => {
     // Update previews and files arrays
@@ -74,6 +85,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
     <div className={styles.imageUpload} onClick={handleClick}>
       <label className={styles.label}>{label}</label>
       <input
+        key={inputKey}
         type="file"
         id="imageUpload"
         accept="image/*"
@@ -96,8 +108,9 @@ const ImageUpload: FC<ImageUploadProps> = ({
               <Image
                 src={preview}
                 alt={`Image Preview ${index + 1}`}
-                width={50}
-                height={50}
+                width={250}
+                height={250}
+                quality={100}
                 className={styles.preview}
                 style={{ objectFit: 'cover' }}
               />

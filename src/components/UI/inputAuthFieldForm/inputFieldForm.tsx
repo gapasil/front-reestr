@@ -1,9 +1,9 @@
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import styles from './style.module.scss';
 import { z } from 'zod';
-import { schemaLogin, schemaRegistration } from '@/types/auth/schemaAuth';
+import { schemaLogin } from '@/types/auth/schemaAuth';
 
-type FormData = z.infer<typeof schemaLogin | typeof schemaRegistration>;
+type FormData = z.infer<typeof schemaLogin>;
 
 interface InputFieldProps {
   label: string;

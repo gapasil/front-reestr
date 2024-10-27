@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import styles from './adminButton.module.scss';
-import { useAppDispatch, useAppSelector } from '@/hooks/ReduxHooks';
-import { useCheckAdmin } from '@/hooks/userHooks';
-import { deleteStatusCrud, updateStatusCrud } from '@/services/crudServices';
+import { useAppDispatch } from '@/hooks/ReduxHooks';
+import {
+  approveEdit,
+  deleteStatusCrud,
+  updateStatusCrud,
+} from '@/services/crudServices';
 import { removeCrudInactive } from '@/store/slices/inactiveCrudSlice';
 import { removeCrud } from '@/store/slices/mainCrudSlice';
+import { deleteDisput } from '@/services/disputService';
+import { removeDisput } from '@/store/slices/disputSlice';
 
 interface AdminButtonProps {
   id: string;
-  type: 'crud' | 'dispute';
+  type: 'crud' | 'dispute' | 'crud-edit';
   deleteB: boolean;
   confirm: boolean;
+  admin: boolean;
 }
 
 const AdminButton: React.FC<AdminButtonProps> = ({
@@ -18,13 +24,11 @@ const AdminButton: React.FC<AdminButtonProps> = ({
   type,
   deleteB,
   confirm,
+  admin,
 }) => {
   const dispatch = useAppDispatch();
   const [backEndError, setBackendError] = useState('');
   const [notification, setNotification] = useState('');
-  const { isOpen } = useAppSelector((state) => state.authAndRegForm);
-
-  const admin = useCheckAdmin(isOpen);
 
   if (!admin) return null;
 
@@ -44,6 +48,16 @@ const AdminButton: React.FC<AdminButtonProps> = ({
       // Логика подтверждения для спора dispute
       console.log(`Подтверждение спора dispute с ID: ${id}`);
       // Здесь можно добавить вызов функции для API или другого действия
+    } else if (type === 'crud-edit') {
+      console.log('edit');
+      try {
+        await approveEdit(id);
+        setNotification('Запись опубликованна');
+        dispatch(removeCrudInactive(id));
+      } catch (error) {
+        setBackendError(error as string);
+        console.error('Ошибка:', error); // Логирование ошибки
+      }
     }
   };
 
@@ -63,7 +77,25 @@ const AdminButton: React.FC<AdminButtonProps> = ({
     } else if (type === 'dispute') {
       // Логика удаления для спора dispute
       console.log(`Удаление спора dispute с ID: ${id}`);
-      // Здесь можно добавить вызов функции для API или другого действия
+      try {
+        await deleteDisput(id);
+        setNotification('Запись удалена');
+        dispatch(removeDisput(id));
+      } catch (error) {
+        setBackendError(error as string);
+        console.error('Ошибка:', error); // Логирование ошибки
+      }
+    } else if (type === 'crud-edit') {
+      console.log(`Удаление карточки crud с ID: ${id}`);
+      try {
+        await deleteStatusCrud(id);
+        setNotification('Запись удалена');
+        dispatch(removeCrudInactive(id));
+        dispatch(removeCrud(id));
+      } catch (error) {
+        setBackendError(error as string);
+        console.error('Ошибка:', error); // Логирование ошибки
+      }
     }
   };
 

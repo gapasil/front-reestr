@@ -1,0 +1,17 @@
+.containerCart {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.container_content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+}
+.paginationButtons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

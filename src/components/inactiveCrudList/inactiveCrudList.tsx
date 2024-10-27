@@ -1,21 +1,42 @@
 'use client';
 
+import React, { useCallback } from 'react';
 import { CartCrud } from '@/components/cardCrud/cartCrud';
-import styles from './inactiveCrudList.module.scss';
-import React, { useEffect } from 'react';
-import { fetchInactiveCruds } from '@/store/api/getCruds';
 import { useAppDispatch, useAppSelector } from '@/hooks/ReduxHooks';
+import { setPage as setInactivePage } from '@/store/slices/inactiveCrudSlice';
+import { fetchInactiveCruds } from '@/store/api/getCruds';
+import usePagination from '@/hooks/usePagination';
+import ViewListContent from '../viewListContent/viewListContent';
+import { useSetQueryParam } from '@/utils/queryParam';
 import { autoReload } from '@/utils/autoReload';
 
 const InactiveCrudList: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { items, loading, error } = useAppSelector(
-    (state) => state.inactiveCrud,
+  const { items, loading, error, currentPage, pageSize, totalPages } =
+    useAppSelector((state) => state.inactiveCrud);
+
+  const handleSetPage = useCallback(
+    (page: number) => {
+      dispatch(setInactivePage(page));
+    },
+    [dispatch],
   );
 
-  useEffect(() => {
-    dispatch(fetchInactiveCruds());
-  }, [dispatch]);
+  const handleFetchData = useCallback(
+    (params: { page: number; limit: number }) => {
+      dispatch(fetchInactiveCruds(params));
+    },
+    [dispatch],
+  );
+
+  usePagination({
+    currentPage,
+    pageSize,
+    setPage: handleSetPage,
+    fetchData: handleFetchData,
+  });
+
+  const setQueryParam = useSetQueryParam();
 
   if (loading) return <div>Загрузка...</div>;
   if (error) {
@@ -23,12 +44,21 @@ const InactiveCrudList: React.FC = () => {
     return <div className="errorP">Ошибка: {error}</div>;
   }
 
+  const handlePageClick = (pageNumber: number) => {
+    if (pageNumber !== currentPage) {
+      handleSetPage(pageNumber);
+      setQueryParam('page', pageNumber);
+    }
+  };
+
   return (
-    <div className={styles.containerCart}>
-      {items.map((value) => (
-        <CartCrud {...value} key={value.id} />
-      ))}
-    </div>
+    <ViewListContent
+      items={items}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={handlePageClick}
+      ItemComponent={CartCrud}
+    />
   );
 };
 

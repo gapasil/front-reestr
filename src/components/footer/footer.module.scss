@@ -8,4 +8,45 @@
   height: 50px;
   padding: $padding-desktop;
   background-color: $headerfooter-surface-primary;
+  p {
+    margin: 5px 0; // Отступы между параграфами
+    color: $main-color-text; // Цвет текста
+  }
+
+  // Стили для ссылок
+  a {
+    padding-top: 5px;
+    margin-top: 5px;
+    color: $highlighted-text; // Цвет ссылок
+    text-decoration: none; // Убираем подчеркивание
+
+    &:hover {
+      text-decoration: underline; // Подчеркивание при наведении
+    }
+  }
+
+  // Медиазапросы для адаптивности
+  @media (max-width: 768px) {
+    padding: 15px; // Уменьшение отступов на меньших экранах
+
+    p {
+      font-size: 14px; // Уменьшение размера шрифта
+    }
+
+    a {
+      font-size: 14px; // Уменьшение размера шрифта для ссылок
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px; // Дополнительное уменьшение отступов на очень маленьких экранах
+
+    p {
+      font-size: 12px; // Еще большее уменьшение размера шрифта
+    }
+
+    a {
+      font-size: 12px; // Соответствующее уменьшение для ссылок
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import styles from './textInput.module.scss';
 
 interface TextInputProps {
@@ -10,30 +10,26 @@ interface TextInputProps {
   flex?: string;
 }
 
-const TextInput: FC<TextInputProps> = ({
-  label,
-  value,
-  onChange,
-  error,
-  placeholder,
-  flex,
-}) => (
-  <div className={styles.wrapper}>
-    <div
-      className={styles.container}
-      style={flex ? { justifyContent: `${flex}` } : {}}
-    >
-      {label && <label htmlFor={label}>{label}:</label>}
-      <input
-        id={label}
-        type="text"
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
+const TextInput: FC<TextInputProps> = memo(
+  ({ label, value, onChange, error, placeholder, flex }) => (
+    <div className={styles.wrapper}>
+      <div
+        className={styles.container}
+        style={flex ? { justifyContent: `${flex}` } : {}}
+      >
+        {label && <label htmlFor={label}>{label}:</label>}
+        <input
+          id={label}
+          type="text"
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+        />
+      </div>
+      {error && <span className="errorP">{error}</span>}
     </div>
-    {error && <span className="errorP">{error}</span>}
-  </div>
+  ),
 );
+TextInput.displayName = 'TextInput';
 
 export default TextInput;

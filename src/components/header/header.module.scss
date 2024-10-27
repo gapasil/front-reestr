@@ -3,19 +3,38 @@
 .container_header {
   position: fixed;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Расположение боковых блоков */
+  align-items: center; /* Вертикальное выравнивание */
   width: 100%;
   height: 50px;
   padding: $padding-desktop;
   background-color: $headerfooter-surface-primary;
+  z-index: 100;
+  @media (max-width: 400px) {
+    height: 120px;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }
+
 .header_block {
   display: flex;
   align-items: center;
+
   button {
     border: 0px;
     background-color: $headerfooter-surface-primary;
     color: $main-color-text;
     cursor: pointer;
+  }
+}
+
+/* Центральный блок */
+.central_block {
+  flex-grow: 1; /* Заставляет блок занимать все доступное пространство */
+  display: flex;
+  justify-content: center; /* Центрируем содержимое внутри блока */
+  @media (max-width: 400px) {
+    flex-grow: 0;
   }
 }

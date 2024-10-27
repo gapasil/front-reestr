@@ -9,7 +9,13 @@
   border-radius: 8px;
   background-color: $main-surface-primary;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
+  @media (max-width: 1160px) {
+    width: fit-content;
+  }
+  @media (max-width: 780px) {
+    padding: 10px;
+    margin: 5px;
+  }
   span {
     font-size: 15px;
   }
@@ -31,6 +37,9 @@
 
   form {
     width: 100%;
+    @media (max-width: 1160px) {
+      width: fit-content;
+    }
   }
 
   input {
@@ -56,16 +65,21 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; // Две колонки
+  display: flex;
   gap: 20px; // Промежуток между колонками
   width: 100%; // Ширина грида
+  overflow: hidden;
+  justify-content: space-between;
+  @media (max-width: 1160px) {
+    flex-direction: column;
+    width: fit-content;
+  }
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  width: fit-content;
 }
 
 .info h2 {
@@ -93,6 +107,7 @@
   }
 }
 .infoLeft {
+  flex-grow: 1; /* Заставляет блок занимать все доступное пространство */
   list-style-type: none;
   padding: 0;
   h3 {

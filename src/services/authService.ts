@@ -28,8 +28,8 @@ export const isAdmin = async (): Promise<boolean> => {
       },
     });
     return true;
-  } catch (_) {
-    console.error('Произошла ошибка');
+  } catch (e) {
+    console.error('Произошла ошибка', e);
     return false;
   }
 };

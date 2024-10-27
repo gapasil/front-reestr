@@ -14,21 +14,24 @@ export const CartCrud: FC<ExtendedCrud> = ({
   categories,
   accusations,
   id,
-  active,
+  admin,
 }) => {
   return (
     <div className={styles.card}>
       {/* Фото и имя */}
       <div className={styles.header}>
         <div className={styles.photoContainer}>
-          <Image
-            src={`${API}${photourl[0]}`}
-            alt={`${name}'s photo`}
-            width={100}
-            height={100}
-            className={styles.photo}
-            objectFit="cover"
-          />
+          {photourl.length > 0 && (
+            <Image
+              src={`${API}${photourl[0]}`}
+              alt={`${name}'s photo`}
+              width={250}
+              height={250}
+              quality={100}
+              className={styles.photo}
+              objectFit="cover"
+            />
+          )}
         </div>
         <h2>{name}</h2>
       </div>
@@ -52,7 +55,13 @@ export const CartCrud: FC<ExtendedCrud> = ({
         <Link href={`/mraz/${id}`} className={styles.detailsButton}>
           Подробнее
         </Link>
-        <AdminButton type="crud" id={id} confirm={!active} deleteB={true} />
+        <AdminButton
+          type="crud"
+          id={id}
+          confirm={false}
+          deleteB={true}
+          admin={admin}
+        />
       </div>
     </div>
   );

@@ -1,12 +1,14 @@
+'use client';
+
 import React, { FC, useEffect, useState } from 'react';
 import styles from './addCrud.module.scss';
 import { Crud, CrudCreate, CrudSchema } from '@/types/Crud';
 import { Categories } from '@/types/enumCategory';
 import TextInput from '../UI/textInputForm/textInputForm';
-import NumberInput from '../UI/numberInputForm/numberInputForm';
+// import NumberInput from '../UI/numberInputForm/numberInputForm';
 import SelectInput from '../UI/selectInputForm/selectInputForm';
 import TextArea from '../UI/textAreaForm/textAreaForm';
-import SocialMediaInput from '../UI/socialMediaInputForm/socialMediaInputForm';
+// import SocialMediaInput from '../UI/socialMediaInputForm/socialMediaInputForm';
 import ImageUpload from '../UI/ImageUpload/imageUpload';
 import { createCrud } from '@/services/crudServices';
 import { useCheckToken } from '@/hooks/userHooks';
@@ -16,6 +18,7 @@ import { getItem } from '@/utils/localStorageUtils';
 import { jwtDecode } from 'jwt-decode';
 import { DecodedToken } from '@/services/authService';
 import VideoUpload from '../UI/videoUpload/videoUpload';
+import { Captcha } from '../captcha/captcha';
 
 type ValidationError = Record<string, string>;
 const initData = {
@@ -44,13 +47,18 @@ const initData = {
 export const AddCrud: FC = () => {
   const [data, setData] = useState<CrudCreate>(initData);
   const [errors, setErrors] = useState<ValidationError>({});
-  const [images, setImages] = useState<File[]>([]); // State to store uploaded images
-  const [videos, setVideos] = useState<File[]>([]); // State to store uploaded images
+  const [images, setImages] = useState<File[]>([]);
+  const [videos, setVideos] = useState<File[]>([]);
   const [backendError, setBackendError] = useState<string | null>(null);
   const [prev, setPrev] = useState<boolean>(false);
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null); // State for CAPTCHA
+  const [remove, setRemove] = useState(false);
+
+  const captchaCb = (value: null | string) => {
+    setCaptchaValue(value);
+  };
 
   const isMenuAuthOpen = useCheckToken();
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -79,6 +87,8 @@ export const AddCrud: FC = () => {
     >,
     field: keyof Crud,
   ) => {
+    console.log(e.target.value);
+
     const value = e.target.value;
     setData((prevData) => ({
       ...prevData,
@@ -86,19 +96,19 @@ export const AddCrud: FC = () => {
     }));
   };
 
-  const handleSocialMediaChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    platform: 'facebook' | 'instagram',
-  ) => {
-    const value = e.target.value;
-    setData((prevData) => ({
-      ...prevData,
-      socialmedia: {
-        ...prevData.socialmedia,
-        [platform]: value,
-      },
-    }));
-  };
+  // const handleSocialMediaChange = (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  //   platform: 'facebook' | 'instagram',
+  // ) => {
+  //   const value = e.target.value;
+  //   setData((prevData) => ({
+  //     ...prevData,
+  //     socialmedia: {
+  //       ...prevData.socialmedia,
+  //       [platform]: value,
+  //     },
+  //   }));
+  // };
 
   const handleCategoryChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
@@ -145,11 +155,16 @@ export const AddCrud: FC = () => {
     console.log(e);
     console.log(data);
 
+    if (!captchaValue) {
+      setBackendError('Пожалуйста, подтвердите, что вы не робот.');
+      return;
+    }
+
     data.categories = data.categories.filter(
       (category) => category !== undefined,
     );
 
-    data.age = Number(data.age); // Убедитесь, что возраст является числом
+    // data.age = Number(data.age); // Убедитесь, что возраст является числом
     const result = CrudSchema.safeParse(data); // Проверка данных на валидность
 
     if (!result.success) {
@@ -178,12 +193,16 @@ export const AddCrud: FC = () => {
 
       try {
         // Отправка POST-запроса на сервер
+        formData.append('captchaValue', captchaValue);
         const responseData = await createCrud(formData); // ожидание ответа от функции createCrud
         console.log(responseData);
         dispatch(showInfModal('Данные успешно отправлены на модерацию!'));
         setData(initData);
         setImages([]);
+        setVideos([]);
         setPrev(!prev);
+        setCaptchaValue(null);
+        setRemove(!remove);
       } catch (error) {
         setBackendError(error as string);
         console.error('Ошибка:', error); // Логирование ошибки
@@ -215,6 +234,13 @@ export const AddCrud: FC = () => {
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
         <div>
+          <p style={{ marginBottom: '10px' }}>
+            Если обязательные поля не известны, укажите прочерки:
+            &quot;---&quot;.
+          </p>
+          <p style={{ marginBottom: '25px' }}>
+            Первая фотография будет использована в качестве превью.
+          </p>
           <ImageUpload
             setPrev={prev}
             label="Загрузить фотографию"
@@ -237,12 +263,12 @@ export const AddCrud: FC = () => {
               onChange={(e) => handleChange(e, 'name')}
               error={errors.name}
             />
-            <NumberInput
+            {/* <NumberInput
               label="Возраст"
               value={data.age}
               onChange={(e) => handleChange(e, 'age')}
               error={errors.age}
-            />
+            /> */}
             <SelectInput
               label="Пол"
               value={data.gender}
@@ -288,7 +314,7 @@ export const AddCrud: FC = () => {
               onChange={(e) => handleChange(e, 'address')}
               error={errors.address}
             />
-            <div className={styles.socialMedia}>
+            {/* <div className={styles.socialMedia}>
               <strong>Социальные медиа:</strong>
               <SocialMediaInput
                 platform="facebook"
@@ -300,14 +326,12 @@ export const AddCrud: FC = () => {
                 value={data.socialmedia?.instagram}
                 onChange={(e) => handleSocialMediaChange(e, 'instagram')}
               />
-            </div>
+            </div> */}
           </div>
           <div className={styles.infoLeft}>
             <h3>Категории:</h3>
             <ul>
               {data.categories.map((category, index) => {
-                console.log(category);
-
                 return (
                   <li key={index}>
                     <SelectInput
@@ -393,6 +417,7 @@ export const AddCrud: FC = () => {
           error={errors.accusations}
           placeholder="Обвинения"
         />
+        <Captcha cb={captchaCb} remove={remove} />
         <button type="submit">Сохранить</button>
         {isMenuAuthOpen && <p className="errorP">Необходимо авторизоваться</p>}
         {!isMenuAuthOpen && backendError && (

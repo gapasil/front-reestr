@@ -1,0 +1,95 @@
+@import '../../../styles/variable.scss';
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.thumbnail {
+  cursor: pointer;
+}
+
+.thumbnailImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  filter: brightness(0.7); // Уменьшаем яркость на 30%
+}
+
+.thumbnailVideo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  filter: brightness(0.7); // Уменьшаем яркость на 30%
+}
+
+.thumbnailVideo {
+  position: relative; // Позволяет позиционировать кнопку относительно видео
+  overflow: hidden; // Скрывает переполнение
+  width: 100px; // Ширина блока
+  height: 100px; // Высота блока
+}
+
+.thumbnailVideo video {
+  width: 100%; // Занимает всю ширину
+  height: 100%; // Занимает всю высоту
+  object-fit: cover; // Сохраняет пропорции видео
+}
+
+.playButton {
+  position: absolute; // Абсолютное позиционирование
+  top: 50%; // Центрируем по вертикали
+  left: 50%; // Центрируем по горизонтали
+  width: 0; // Ширина кнопки
+  height: 0; // Высота кнопки
+  border-top: 15px solid transparent; // Верхний край треугольника
+  border-bottom: 15px solid transparent; // Нижний край треугольника
+  border-left: 30px solid $button-color-primary; // Правый край треугольника
+  transform: translate(-50%, -50%) rotate(0deg); // Центрируем
+  cursor: pointer; // Указатель при наведении
+  z-index: 5; // Обеспечивает, что кнопка выше видео
+  filter: brightness(1.3); // Уменьшаем яркость на 30%
+}
+
+.fullscreenOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.fullscreenContent {
+  position: relative;
+  width: 70%;
+  height: 70%;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.fullscreenImage,
+.fullscreenVideo {
+  width: 100%;
+  height: 100% !important;
+  height: auto;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: $button-color-primary;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: $main-color-text;
+  border-radius: 5px;
+}

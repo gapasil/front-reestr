@@ -9,6 +9,16 @@
   padding-top: 80px;
   padding-bottom: 20px;
   overflow-x: hidden; // Скрываем горизонтальную прокрутку
+  max-width: 1800px;
+  margin: 0 auto; // Center the container within its parent
+
+  @media (max-width: 780px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $padding-mobile;
+    padding-top: 90px;
+  }
 }
 .content-layout {
   flex-grow: 1;
@@ -17,6 +27,31 @@
   background-color: $main-surface-secondary;
   margin: 0px 20px 0px 20px;
   border-radius: 4px;
-  padding: 10px 30px 10px 30px;
+  padding: 10px 20px 10px 30px;
   overflow-x: hidden;
+  @media (max-width: 780px) {
+    margin: 0px 0px 0px 0px;
+    max-width: 100%;
+    padding: 10px 10px 10px 10px;
+  }
+  @media (max-width: 400px) {
+    margin-top: 70px;
+  }
+}
+.header-page {
+  @media (max-width: 780px) {
+    text-align: center;
+  }
+}
+
+.block-donate {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.flagImage {
+  display: block; // Отображение как блочный элемент
+  margin: 20px; // Центрирование и отступ сверху и снизу
+  width: 250px; // Ширина изображения (можно изменить по желанию)
+  height: auto; // Автоматическая высота для сохранения пропорций
 }

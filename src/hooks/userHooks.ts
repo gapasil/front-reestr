@@ -6,7 +6,12 @@ import { useEffect, useState } from 'react';
 export const useCheckToken = (): boolean => {
   const dispatch = useAppDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // Состояние для отслеживания состояния меню
-  const token = localStorage.getItem('user');
+
+  let token = null;
+
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('user');
+  }
 
   useEffect(() => {
     const validateToken = async (): Promise<void> => {

@@ -5,6 +5,7 @@ interface VideoUploadProps {
   label: string;
   onVideoChange: (files: File[] | null) => void; // Function to pass the selected video files
   setPrev: boolean; // Prop to reset previews
+  lengthOldVideo?: number;
 }
 
 const MAX_FILES = 2; // Maximum number of files allowed
@@ -13,12 +14,15 @@ const VideoUpload: FC<VideoUploadProps> = ({
   label,
   onVideoChange,
   setPrev,
+  lengthOldVideo,
 }) => {
+  const [inputKey, setInputKey] = useState(0); // очистка кеша файлов для добавления прошлых видео
   const [files, setFiles] = useState<File[]>([]); // State to keep track of selected video files
   const [previews, setPreviews] = useState<string[]>([]); // State for video previews
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
+    setInputKey((prevKey) => prevKey + 1);
     setFiles([]); // Reset files when setPrev changes
     setPreviews([]); // Reset previews when setPrev changes
   }, [setPrev]);
@@ -36,8 +40,10 @@ const VideoUpload: FC<VideoUploadProps> = ({
           !files.some((existingFile) => existingFile.name === file.name),
       );
 
+      const lengOld = lengthOldVideo ? lengthOldVideo : 0;
+
       // Check if adding these new files would exceed the maximum limit
-      if (files.length + newFiles.length > MAX_FILES) {
+      if (lengOld + files.length + newFiles.length > MAX_FILES) {
         setError('Максимум 2 видео');
         return;
       }
@@ -55,6 +61,8 @@ const VideoUpload: FC<VideoUploadProps> = ({
     }
   };
 
+  //////////////////////// ЧТОБЫ НАЖАТИЕ ВЫЗЫВАЛО СОБЫТИЕ КОТОРОЕ НАДО ИЛИ ПРИ ПЕРЕХОДЕ НА СОЗДАНИЕ КАЛ НАЧНЕТСЯ
+
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     document.getElementById('videoUpload')?.click(); // Trigger file input
@@ -64,8 +72,9 @@ const VideoUpload: FC<VideoUploadProps> = ({
     e.stopPropagation(); // Prevent event bubbling
   };
 
+  /////////////////////// ЧТОБЫ ВСПЛЫТИЕ ОСТАНАВЛИВАЛОСЬ И ВСЕ РАБОТАЛО КАК НАДО
+
   const removePreview = (index: number) => {
-    // Update previews and files arrays
     setPreviews((prev) => prev.filter((_, i) => i !== index)); // Remove preview
     setFiles((prev) => prev.filter((_, i) => i !== index)); // Remove file
     onVideoChange(files.filter((_, i) => i !== index)); // Pass updated files to parent
@@ -75,6 +84,7 @@ const VideoUpload: FC<VideoUploadProps> = ({
     <div className={styles.videoUpload} onClick={handleClick}>
       <label className={styles.label}>{label}</label>
       <input
+        key={inputKey}
         type="file"
         id="videoUpload"
         accept="video/*"

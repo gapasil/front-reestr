@@ -5,8 +5,11 @@ import React from 'react';
 const ErrorPage: React.FC = () => {
   return (
     <main>
-      <h1>Something went wrong</h1>
-      <p>We&apos;re sorry, but something went wrong. Please try again later.</p>
+      <h1>Что-то пошло не так</h1>
+      <p>
+        Приносим извинения, но что-то пошло не так. Пожалуйста, повторите
+        попытку позже.
+      </p>
     </main>
   );
 };

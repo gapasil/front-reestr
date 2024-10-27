@@ -7,7 +7,7 @@ const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/';
 
 export const createCrud = async (
   formData: FormData,
-): Promise<Crud | undefined> => {
+): Promise<Crud | undefined | string> => {
   const token = getItem('user');
   try {
     const response = await axios.post(`${API}api/cruds`, formData, {
@@ -59,5 +59,44 @@ export const deleteStatusCrud = async (
   } catch (error) {
     console.error('Ошибка при подтверждений:', error);
     handleApiError(error, 'Ошибка при подтверждений:');
+  }
+};
+
+export const submitEditForReview = async (
+  id: string,
+  formData: FormData,
+): Promise<Crud | undefined> => {
+  const token = getItem('user');
+  try {
+    const response = await axios.post(`${API}api/cruds/${id}/edit`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token?.token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Ошибка при отправке на модерацию:', error);
+    handleApiError(error, 'Ошибка при отправке на модерацию:');
+  }
+};
+
+// Функция для подтверждения изменений администратором
+export const approveEdit = async (id: string): Promise<Crud | undefined> => {
+  const token = getItem('user');
+  try {
+    const response = await axios.patch(
+      `${API}api/cruds/${id}/approve`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token?.token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Ошибка при подтверждении изменений:', error);
+    handleApiError(error, 'Ошибка при подтверждении изменений:');
   }
 };

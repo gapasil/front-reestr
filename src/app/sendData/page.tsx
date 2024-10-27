@@ -5,7 +5,9 @@ import React, { memo } from 'react';
 
 const SendData: React.FC = () => {
   return (
-    <main>
+    <main
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+    >
       <h1>Отправить данные</h1>
       <AddCrud />
     </main>

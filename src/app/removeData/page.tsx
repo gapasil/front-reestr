@@ -7,7 +7,7 @@ const RemoveData: React.FC = () => {
     <main
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <h1>Оспорить публикацию</h1>
+      <h1 className="header-page">Оспорить публикацию</h1>
       <AddDisput />
     </main>
   );

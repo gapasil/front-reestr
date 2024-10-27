@@ -1,0 +1,73 @@
+@import '../../../styles/variable.scss';
+
+.carouselContainer {
+  width: 100%;
+  width: 200px; // Ширина контейнера карусели
+  height: 200px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+
+  .slideCarusel {
+    width: 200px; // Ширина слайда
+    height: 200px; // Высота слайда
+    display: flex; // Выравнивание изображения по центру
+    justify-content: center; // Горизонтальное выравнивание
+    align-items: center; // Вертикальное выравнивание
+  }
+
+  .imageSlide {
+    text-align: center;
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+  }
+
+  .slick-dots {
+    bottom: -30px;
+
+    li {
+      &.slick-active button:before {
+        color: $button-color-primary !important; // Цвет активной точки
+        opacity: 1;
+      }
+
+      button:before {
+        font-size: 12px;
+        color: $main-surface-tertiary !important; // Цвет неактивных точек
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .slick-prev,
+  .slick-next {
+    z-index: 1;
+    width: 10px;
+    height: 40px;
+  }
+
+  .slick-prev {
+    left: -30px;
+    background-size: contain;
+  }
+
+  .slick-prev::before {
+    color: $button-color-primary;
+  }
+
+  .slick-next {
+    right: -20px;
+    background-size: contain;
+  }
+
+  .slick-next::before {
+    color: $button-color-primary;
+  }
+}
+
+.slideCarusel {
+  display: flex !important;
+  justify-content: center !important;
+}

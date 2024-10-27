@@ -1,0 +1,79 @@
+@import '../../styles/variable.scss';
+
+.main {
+  font-family: 'Arial', sans-serif; // Установите шрифт для основного текста
+  line-height: 1.6; // Интервал между строками для удобства чтения
+  padding: 20px; // Внутренние отступы для всего содержимого
+  max-width: 800px; // Максимальная ширина контейнера
+  margin: 0 auto; // Центрирование контейнера по горизонтали
+  background-color: $main-surface-primary; // Цвет фона для главного контейнера
+  border-radius: 8px; // Закругление углов главного контейнера
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Легкая тень для добавления глубины
+
+  .header {
+    color: white; // Цвет текста заголовка
+    padding: 10px 20px; // Внутренние отступы заголовка
+    border-radius: 8px 8px 0 0; // Закругление верхних углов заголовка
+    text-align: start; // Центрирование текста в заголовке
+
+    h1 {
+      margin: 0; // Удаление отступов для заголовка
+      font-size: 2rem; // Размер шрифта заголовка
+    }
+  }
+
+  .section {
+    padding: 15px; // Внутренние отступы для секции
+    padding-top: 0px;
+    border-radius: 0 0 8px 8px; // Закругление нижних углов секции
+
+    strong {
+      color: $highlighted-text;
+    }
+
+    h2 {
+      font-size: 1.5rem; // Размер шрифта для подзаголовка
+      margin-top: 0; // Удаление отступов сверху для подзаголовка
+    }
+
+    p {
+      margin: 10px 0; // Отступы для параграфов
+      margin-top: 20px;
+    }
+
+    ul {
+      padding-left: 20px; // Отступ для списка
+
+      li {
+        margin-bottom: 10px; // Отступ для элементов списка
+      }
+    }
+  }
+}
+
+.blockBottom {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  a {
+    display: inline-block; // Делаем ссылку блочным элементом
+    padding: 10px 20px; // Внутренние отступы
+    background-color: $button-color-primary; // Основной цвет кнопки
+    color: $main-color-text; // Цвет текста
+    border: none; // Убираем рамку
+    border-radius: 5px; // Скругление углов
+    text-decoration: none; // Убираем подчеркивание
+    transition: background-color 0.3s ease; // Плавный переход цвета фона
+
+    &:hover {
+      background-color: $button-color-hover; // Цвет кнопки при наведении
+    }
+  }
+}
+
+.flagImage {
+  display: block; // Отображение как блочный элемент
+  margin: 20px auto; // Центрирование и отступ сверху и снизу
+  width: 250px; // Ширина изображения (можно изменить по желанию)
+  height: auto; // Автоматическая высота для сохранения пропорций
+}

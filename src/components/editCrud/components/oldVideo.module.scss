@@ -1,0 +1,20 @@
+.videoWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 15px;
+  video {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.removeButton {
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners for the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  padding: 5px 10px; /* Padding for the button */
+  max-width: 200px;
+}

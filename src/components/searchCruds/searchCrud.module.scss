@@ -1,0 +1,44 @@
+@import '../../styles/variable.scss';
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin: 20px; /* Adjust margin as needed */
+  @media (max-width: 780px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.searchInput {
+  flex: 1; /* Allow input to grow */
+  padding: 10px; /* Space inside the input */
+  border: 0px; /* Light gray border */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  margin-right: 10px; /* Space between input and button */
+  background-color: $main-surface-primary;
+  color: $main-color-text;
+  @media (max-width: 780px) {
+    margin-right: 0px;
+    width: 100%;
+  }
+}
+
+.searchButton {
+  padding: 10px 20px; /* Space inside the button */
+  background-color: $button-color-primary; /* Bootstrap primary color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s; /* Smooth transition */
+  @media (max-width: 780px) {
+    flex: 1;
+    width: 95%;
+  }
+  &:hover {
+    background-color: $button-color-hover; /* Darker blue on hover */
+  }
+}

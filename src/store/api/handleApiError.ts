@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { AxiosErrorResponse } from '@/types/auth/AxiosErrorResponse'; // Ваш тип ошибок
 
 export const handleApiError = (error: unknown, context: string): string => {
@@ -6,6 +6,8 @@ export const handleApiError = (error: unknown, context: string): string => {
 
   if (axios.isAxiosError(error)) {
     if (error.response) {
+      console.log(error);
+
       const errResponse = error.response.data as AxiosErrorResponse;
       console.error('Сервер вернул ошибку:', errResponse);
       return errResponse.error || 'Неизвестная ошибка сервера';

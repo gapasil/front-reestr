@@ -22,7 +22,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    max-width: 250px;
+    max-width: 200px;
 
     &:hover {
       background-color: #45a049; /* Цвет при наведении */
@@ -44,7 +44,7 @@
   flex-direction: column;
   gap: 15px;
   video {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
   }
 }
