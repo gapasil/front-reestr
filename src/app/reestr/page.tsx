@@ -2,7 +2,7 @@
 
 import styles from './reestr.module.scss';
 import React, { Suspense } from 'react';
-import CrudList from '@/components/crudList/crudList';
+import CrudList from '@/components/containers/crudList/crudList';
 
 const Reestr: React.FC = () => {
   return (

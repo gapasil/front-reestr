@@ -1,6 +1,6 @@
 'use client';
 
-import { EditCrud } from '@/components/editCrud/editCrud';
+import { EditCrud } from '@/components/containers/editCrud/editCrud';
 import { ExtendedCrud } from '@/types/Crud';
 import { dateUtils } from '@/utils/dateUtils';
 import axios from 'axios';

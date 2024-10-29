@@ -1,6 +1,6 @@
 'use client';
 
-import ListDisput from '@/components/listDisput/listDisput';
+import ListDisput from '@/components/containers/listDisput/listDisput';
 import withAdminProtection from '@/hoc/withAdminProtection';
 import React from 'react';
 

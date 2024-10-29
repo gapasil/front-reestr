@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { AddCrud } from '../components/addCrud/addCrud'; // Assuming AddCrud is in the same directory
+import { AddCrud } from '../components/containers/addCrud/addCrud'; // Assuming AddCrud is in the same directory
 import { createCrud } from '@/services/crudServices';
 import { useCheckToken } from '@/hooks/userHooks';
 import { Provider } from 'react-redux';

@@ -5,10 +5,10 @@ import { Provider } from 'react-redux';
 import store from '@/store/store';
 import '@/styles/globals.scss';
 import '@/styles/layout.scss';
-import { Header } from '@/components/header/header';
-import { MainSideMenu } from '@/components/mainSideMenu/mainSideMenu';
-import { Footer } from '@/components/footer/footer';
-import AuthForm from '@/components/authForm/authForm';
+import { Header } from '@/components/containers/header/header';
+import { MainSideMenu } from '@/components/containers/mainSideMenu/mainSideMenu';
+import { Footer } from '@/components/containers/footer/footer';
+import AuthForm from '@/components/containers/authForm/authForm';
 import InfModal from '@/components/UI/infModal/infModal';
 import Head from 'next/head';
 

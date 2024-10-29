@@ -1,4 +1,4 @@
-import { ProfileDisput } from '@/components/profileDisput/profileDisput';
+import { ProfileDisput } from '@/components/containers/profileDisput/profileDisput';
 import React from 'react';
 
 const DisputeProfile: React.FC<{ params: { id: string } }> = ({ params }) => {

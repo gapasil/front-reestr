@@ -1,6 +1,6 @@
 'use client';
 
-import { AddCrud } from '@/components/addCrud/addCrud';
+import { AddCrud } from '@/components/containers/addCrud/addCrud';
 import React, { memo } from 'react';
 
 const SendData: React.FC = () => {

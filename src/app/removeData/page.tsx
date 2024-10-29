@@ -1,5 +1,5 @@
 'use client';
-import { AddDisput } from '@/components/addDisput/addDisput';
+import { AddDisput } from '@/components/containers/addDisput/addDisput';
 import React from 'react';
 
 const RemoveData: React.FC = () => {

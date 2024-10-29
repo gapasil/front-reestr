@@ -1,6 +1,6 @@
 'use client';
 
-import InactiveCrudList from '@/components/inactiveCrudList/inactiveCrudList';
+import InactiveCrudList from '@/components/containers/inactiveCrudList/inactiveCrudList';
 import withAdminProtection from '@/hoc/withAdminProtection';
 import React from 'react';
 

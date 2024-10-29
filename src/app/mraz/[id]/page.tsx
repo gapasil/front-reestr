@@ -1,4 +1,4 @@
-import { ProfileCrud } from '@/components/profileCrud/profileCrud';
+import { ProfileCrud } from '@/components/containers/profileCrud/profileCrud';
 import React from 'react';
 
 const MrazPage: React.FC<{ params: { id: string } }> = ({ params }) => {

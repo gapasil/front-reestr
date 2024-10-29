@@ -1,0 +1,114 @@
+@import '../../../styles/variable.scss';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-bottom: 30px;
+  border-radius: 10px;
+  width: 260px;
+  background-color: $main-surface-primary;
+  text-align: start;
+  gap: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+
+  h2 {
+    width: 100%;
+    text-align: start;
+    margin: 0;
+    font-size: 1.5rem;
+    word-wrap: break-word;
+  }
+  p {
+    text-align: start;
+    margin: 5px 0;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin: 5px 0;
+  }
+}
+
+.link {
+  color: $button-color-primary;
+  margin-left: 5px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.photoContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin-bottom: 10px;
+  min-height: 250px;
+}
+
+.photo {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  p {
+    word-wrap: break-word;
+  }
+}
+.infoCategory {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  li {
+    margin-left: 5px;
+    text-align: start;
+    color: $highlighted-text-error;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: fit-content;
+  text-align: start;
+}
+
+.detailsButton {
+  background-color: $button-color-primary;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.detailsButton:hover {
+  background-color: $button-color-hover;
+}
+
+.cardSeparator {
+  width: 100%;
+  height: 1px;
+  background-color: $button-color-primary;
+}
