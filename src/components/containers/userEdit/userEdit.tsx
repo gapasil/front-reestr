@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './userEdit.module.scss';
 import { adminUser } from '@/services/userService'; // Импортируем функцию adminUser
 import axios from 'axios';
+import { API } from '@/variable/Api';
+import { getItem } from '@/utils/localStorageUtils';
 
 const UserEdit: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
   const [backEndError, setBackendError] = useState<string>('');
   const [notification, setNotification] = useState<string>('');
+  const [user, setUser] = useState<{
+    totalUsers: number;
+    emails: Array<string>;
+  } | null>();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // Предотвращаем перезагрузку страницы
@@ -33,6 +39,24 @@ const UserEdit: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const token = getItem('user');
+    const fetchData = async () => {
+      try {
+        const url = `${API}api/user/usersSummary`;
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token?.token}`,
+          },
+        });
+        setUser(response.data); // Сохраняем данные в состояние
+      } catch (error) {
+        console.error('Ошибка при загрузке данных:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className={styles.userEditContainer}>
       <h2>Редактировать пользователя</h2>
@@ -46,6 +70,17 @@ const UserEdit: React.FC = () => {
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
           />
+        </div>
+        <div>
+          <h2>Все юзеры</h2>
+          <h2>{user?.totalUsers}</h2>
+          <div>
+            {user?.emails.map((value) => (
+              <p key={value} style={{ margin: '10px' }}>
+                {value}
+              </p>
+            ))}
+          </div>
         </div>
         {backEndError && <p className="errorP">{backEndError}</p>}
         {notification && <p className="highlightP">{notification}</p>}

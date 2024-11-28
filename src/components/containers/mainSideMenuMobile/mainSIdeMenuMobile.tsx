@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import styles from './mainSideMenuMobile.module.scss';
 import { useAppSelector } from '@/hooks/ReduxHooks';
 import { useCheckAdmin } from '@/hooks/userHooks';
+import Image from 'next/image';
 
 export const MainSideMenuMobile: FC = () => {
   const pathname = usePathname();
@@ -78,6 +79,15 @@ export const MainSideMenuMobile: FC = () => {
             О нас
           </Link>
         </li>
+        <Link href="/support" className={'buttonSupport'}>
+          Поддержать
+          <Image
+            src="/support.png"
+            alt="Logo"
+            width={20} // Укажите нужную ширину
+            height={20} // Укажите нужную высоту
+          />
+        </Link>
       </ul>
     </nav>
   );

@@ -19,6 +19,7 @@ import { jwtDecode } from 'jwt-decode';
 import { DecodedToken } from '@/services/authService';
 import VideoUpload from '../../UI/videoUpload/videoUpload';
 import { Captcha } from '../captcha/captcha';
+import RoundToggle from '@/components/UI/roundToggle/RoundToggle';
 
 type ValidationError = Record<string, string>;
 const initData = {
@@ -42,6 +43,7 @@ const initData = {
   accusations: '',
   proof: [],
   userId: undefined,
+  personaldata: false,
 };
 
 export const AddCrud: FC = () => {
@@ -53,6 +55,8 @@ export const AddCrud: FC = () => {
   const [prev, setPrev] = useState<boolean>(false);
   const [captchaValue, setCaptchaValue] = useState<string | null>(null); // State for CAPTCHA
   const [remove, setRemove] = useState(false);
+
+  const [stateFetch, setStateFetch] = useState(false);
 
   const captchaCb = (value: null | string) => {
     setCaptchaValue(value);
@@ -192,10 +196,12 @@ export const AddCrud: FC = () => {
       });
 
       try {
+        setStateFetch(true);
         // Отправка POST-запроса на сервер
         formData.append('captchaValue', captchaValue);
         const responseData = await createCrud(formData); // ожидание ответа от функции createCrud
         console.log(responseData);
+        setStateFetch(false);
         dispatch(showInfModal('Данные успешно отправлены на модерацию!'));
         setData(initData);
         setImages([]);
@@ -204,6 +210,7 @@ export const AddCrud: FC = () => {
         setCaptchaValue(null);
         setRemove(!remove);
       } catch (error) {
+        setStateFetch(false);
         setBackendError(error as string);
         console.error('Ошибка:', error); // Логирование ошибки
       }
@@ -282,7 +289,7 @@ export const AddCrud: FC = () => {
               value={data.birthdate}
               onChange={(e) => handleChange(e, 'birthdate')}
               error={errors.birthdate}
-              placeholder="YYYY-MM-DD"
+              placeholder="ГГГГ-MM-ДД"
             />
             <TextInput
               label="Место рождения"
@@ -301,7 +308,6 @@ export const AddCrud: FC = () => {
               value={data.phone || ''}
               onChange={(e) => handleChange(e, 'phone')}
               error={errors.phone}
-              placeholder="Введите номер телефона"
             />
             <TextInput
               label="Email"
@@ -328,6 +334,18 @@ export const AddCrud: FC = () => {
                 onChange={(e) => handleSocialMediaChange(e, 'instagram')}
               />
             </div> */}
+            <div className={styles.toggleContainer}>
+              <label>Есть ли персональные данные:</label>
+              <RoundToggle
+                value={data.personaldata}
+                onChange={(value) =>
+                  setData((prevData) => ({
+                    ...prevData,
+                    personaldata: value,
+                  }))
+                }
+              />
+            </div>
           </div>
           <div className={styles.infoLeft}>
             <h3>Категории:</h3>
@@ -419,7 +437,8 @@ export const AddCrud: FC = () => {
           placeholder="Обвинения"
         />
         <Captcha cb={captchaCb} remove={remove} />
-        <button type="submit">Сохранить</button>
+        {stateFetch && <p className="highlightP">Загрузка данных...</p>}
+        {stateFetch ? <></> : <button type="submit">Сохранить</button>}
         {isMenuAuthOpen && <p className="errorP">Необходимо авторизоваться</p>}
         {!isMenuAuthOpen && backendError && (
           <p className="errorP">{backendError}</p>

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { hideInfModal } from '@/store/UISlices/infModalSlice';
 import styles from './modal.module.scss';
@@ -16,7 +18,7 @@ const InfModal: React.FC = () => {
         setTimeout(() => {
           dispatch(hideInfModal());
         }, 300); // Даем время для завершения анимации
-      }, 5000); // Модальное окно исчезает через 5 секунд
+      }, 3000); // Модальное окно исчезает через 5 секунд
 
       return () => clearTimeout(timer);
     }

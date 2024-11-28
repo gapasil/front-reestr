@@ -1,4 +1,32 @@
+@import '../../styles/variable.scss';
+
 .containerCart {
   display: flex;
   flex-wrap: wrap;
+}
+
+.introText {
+  background-color: $main-surface-primary; /* Светлый фон для выделения текста */
+  border: 1px solid $button-color-primary; /* Легкая рамка */
+  border-radius: 8px; /* Скругленные углы */
+  padding: 20px; /* Внутренний отступ */
+  margin: 20px auto; /* Внешние отступы для разделения */
+  max-width: 800px; /* Ограничение ширины */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+.introText p {
+  font-size: 1rem;
+  line-height: 1.6; /* Увеличенное межстрочное расстояние для читаемости */
+  margin-bottom: 15px; /* Отступы между абзацами */
+}
+
+.introText a {
+  color: $highlighted-text;
+  font-weight: bold; /* Выделение текста */
+}
+
+.introText p strong {
+  color: $highlighted-text;
+  font-weight: bold; /* Выделение текста */
 }

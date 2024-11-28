@@ -12,7 +12,8 @@
     "test": "jest",
     "server": "json-server --watch db.json --port 3001",
     "postinstall": "npx husky-init && husky install",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

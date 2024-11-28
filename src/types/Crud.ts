@@ -34,6 +34,7 @@ export interface CrudCreate {
   accusations: string;
   proof?: CrudProof[];
   userId: string | undefined;
+  personaldata?: boolean;
 }
 
 export interface Crud {
@@ -57,6 +58,7 @@ export interface Crud {
   accusations: string;
   proof?: CrudProof[];
   userId: string | undefined;
+  personaldata?: boolean;
 }
 
 enum Gender {

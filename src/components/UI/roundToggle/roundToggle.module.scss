@@ -1,0 +1,30 @@
+.toggle {
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.knob {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.3s;
+}
+
+.active {
+  background: #4caf50;
+
+  .knob {
+    left: 22px;
+  }
+}

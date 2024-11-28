@@ -34,6 +34,7 @@ export const AddDisput: FC = () => {
   const [prev, setPrev] = useState<boolean>(false);
   const [captchaValue, setCaptchaValue] = useState<string | null>(null); // State for CAPTCHA
   const [remove, setRemove] = useState(false);
+  const [stateFetch, setStateFetch] = useState(false);
 
   const captchaCb = (value: null | string) => {
     setCaptchaValue(value);
@@ -114,15 +115,18 @@ export const AddDisput: FC = () => {
 
       try {
         // Отправка POST-запроса на сервер
+        setStateFetch(true);
         formData.append('captchaValue', captchaValue);
         const responseData = await createDisput(formData); // ожидание ответа от функции createCrud
         console.log(responseData);
+        setStateFetch(false);
         dispatch(showInfModal('Данные успешно отправлены на модерацию!'));
         setData(initData);
         setPrev(!prev);
         setRemove(!remove);
         setCaptchaValue(null);
       } catch (error) {
+        setStateFetch(false);
         setBackendError(error as string);
         console.error('Ошибка:', error); // Логирование ошибки
       }
@@ -247,7 +251,8 @@ export const AddDisput: FC = () => {
           <p className="errorP">{errors.link}</p>
         </div>
         <Captcha cb={captchaCb} remove={remove} />
-        <button type="submit">Сохранить</button>
+        {stateFetch && <p className="highlightP">Загрузка данных...</p>}
+        {stateFetch ? <></> : <button type="submit">Сохранить</button>}
         {isMenuAuthOpen && <p className="errorP">Необходимо авторизоваться</p>}
         {!isMenuAuthOpen && backendError && (
           <p className="errorP">{backendError}</p>

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { Control, useForm } from 'react-hook-form';
 import { z } from 'zod';

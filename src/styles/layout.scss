@@ -27,7 +27,7 @@
   background-color: $main-surface-secondary;
   margin: 0px 20px 0px 20px;
   border-radius: 4px;
-  padding: 10px 20px 10px 30px;
+  padding: 10px 30px 10px 30px;
   overflow-x: hidden;
   @media (max-width: 780px) {
     margin: 0px 0px 0px 0px;
@@ -42,6 +42,21 @@
   @media (max-width: 780px) {
     text-align: center;
   }
+}
+.buttonSupport {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $button-color-primary;
+  color: white;
+  padding: 10px 10px;
+  height: fit-content;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
 }
 
 .block-donate {

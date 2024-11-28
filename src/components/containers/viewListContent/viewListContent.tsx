@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './viewListContent.module.scss'; // Предполагается, что у вас есть стили
 import Pagination from '../../UI/pagination/pagination';
 import SearchCruds from '../searchCruds/searchCruds';
@@ -28,6 +28,12 @@ const ViewListContent = <T extends ItemWithId>({
 }: ViewListContentProps<T>): JSX.Element => {
   const { isOpen } = useAppSelector((state) => state.authAndRegForm);
   const admin = useCheckAdmin(isOpen);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0, // Scroll to the top of the page
+      behavior: 'smooth', // Smooth scroll
+    });
+  }, [currentPage]);
   return (
     <div className={styles.containerCart}>
       {search && <SearchCruds />}

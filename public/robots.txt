@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Sitemap: https://reestr-rusofobov.ru/routesRobot/sitemap
+Disallow: /editData
+Disallow: /removeData
+Disallow: /userEdit
+Disallow: /sendData
+Disallow: /moderate
+Disallow: /disputeProfile
+Disallow: /dispute
+Disallow: /*editData

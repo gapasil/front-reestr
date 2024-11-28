@@ -42,9 +42,9 @@ export const ProfileCrud: FC<{ id: string }> = ({ id }) => {
     fetchData();
   }, [id]);
 
-  useEffect(() => {
-    console.log(profile);
-  }, [profile]);
+  // useEffect(() => {
+  //   console.log(profile);
+  // }, [profile]);
 
   if (loading) return <div>Загрузка...</div>;
 
@@ -64,12 +64,15 @@ export const ProfileCrud: FC<{ id: string }> = ({ id }) => {
   ];
 
   return (
-    <div className={styles.container}>
-      {profile.parent_id && (
-        <Link href={`/mraz/${id}`}>Оригинальная статья</Link>
-      )}
-      {profile.active && <Link href={`/editData/${id}`}>Отредактировать</Link>}
-      {/* {profile.photourl.map((photo) => (
+    <>
+      <div className={styles.container}>
+        {profile.parent_id && (
+          <Link href={`/mraz/${profile.parent_id}`}>Оригинальная запись</Link>
+        )}
+        {profile.active && (
+          <Link href={`/editData/${id}`}>Отредактировать</Link>
+        )}
+        {/* {profile.photourl.map((photo) => (
         <Image
           key={photo}
           src={`${API}${photo}`}
@@ -81,22 +84,22 @@ export const ProfileCrud: FC<{ id: string }> = ({ id }) => {
           quality={100}
         />
       ))} */}
-      {profile.photourl.length > 1 ? (
-        <Carousel images={profile.photourl} />
-      ) : (
-        <Image
-          key={profile.photourl[0]}
-          src={`${API}${profile.photourl[0]}`}
-          alt={`${profile.name}'s photo`}
-          className={styles.photo}
-          style={{ objectFit: 'cover' }}
-          width={250}
-          height={250}
-          quality={100}
-        />
-      )}
-      {/* <PrevLineContent /> */}
-      {/* {profile.videourl.map((video) => (
+        {profile.photourl.length > 1 ? (
+          <Carousel images={profile.photourl} />
+        ) : (
+          <Image
+            key={profile.photourl[0]}
+            src={`${API}${profile.photourl[0]}`}
+            alt={`${profile.name}'s photo`}
+            className={styles.photo}
+            style={{ objectFit: 'cover' }}
+            width={250}
+            height={250}
+            quality={100}
+          />
+        )}
+        {/* <PrevLineContent /> */}
+        {/* {profile.videourl.map((video) => (
         <video
           src={`${API}${video}`}
           controls
@@ -106,40 +109,40 @@ export const ProfileCrud: FC<{ id: string }> = ({ id }) => {
           className={styles.preview}
         />
       ))} */}
-      <div className={styles.grid}>
-        <div className={styles.info}>
-          <h2>{profile?.name}</h2>
-          <p>
-            <strong>ID:</strong> {profile?.id}
-          </p>
-          {/* <p>
+        <div className={styles.grid}>
+          <div className={styles.info}>
+            <h2>{profile?.name}</h2>
+            <p>
+              <strong>ID:</strong> {profile?.id}
+            </p>
+            {/* <p>
             <strong>Возраст:</strong> {profile?.age}
           </p> */}
-          <p>
-            <strong>Пол:</strong> {profile?.gender}
-          </p>
-          <p>
-            <strong>Дата рождения:</strong>{' '}
-            {profile?.birthdate
-              ? dateUtils.formatDate(dateUtils.parseDate(profile?.birthdate))
-              : ''}
-          </p>
-          <p>
-            <strong>Место рождения:</strong> {profile?.birthplace}
-          </p>
-          <p>
-            <strong>Гражданство:</strong> {profile?.citizenship}
-          </p>
-          <p>
-            <strong>Телефон:</strong> {profile?.phone}
-          </p>
-          <p>
-            <strong>Email:</strong> {profile?.email}
-          </p>
-          <p>
-            <strong>Адрес:</strong> {profile?.address}
-          </p>
-          {/* <div className={styles.socialMedia}>
+            <p>
+              <strong>Пол:</strong> {profile?.gender}
+            </p>
+            <p>
+              <strong>Дата рождения:</strong>{' '}
+              {profile?.birthdate
+                ? dateUtils.formatDate(dateUtils.parseDate(profile?.birthdate))
+                : ''}
+            </p>
+            <p>
+              <strong>Место рождения:</strong> {profile?.birthplace}
+            </p>
+            <p>
+              <strong>Гражданство:</strong> {profile?.citizenship}
+            </p>
+            <p>
+              <strong>Телефон:</strong> {profile?.phone}
+            </p>
+            <p>
+              <strong>Email:</strong> {profile?.email}
+            </p>
+            <p>
+              <strong>Адрес:</strong> {profile?.address}
+            </p>
+            {/* <div className={styles.socialMedia}>
             {profile.socialmedia?.facebook && (
               <a
                 href={profile.socialmedia.facebook}
@@ -159,38 +162,43 @@ export const ProfileCrud: FC<{ id: string }> = ({ id }) => {
               </a>
             )}
           </div> */}
+          </div>
+          <div className={styles.infoLeft}>
+            <h3>Категории:</h3>
+            <ul>
+              {profile?.categories?.map((category) => (
+                <li key={category}>{category}</li>
+              ))}
+            </ul>
+            <h3>Источники:</h3>
+            {profile.proof &&
+              profile.proof.length > 0 &&
+              profile.proof.map((proof) => (
+                <li key={proof.link}>
+                  <a
+                    href={proof.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {proof.description}
+                  </a>
+                </li>
+              ))}
+          </div>
         </div>
-        <div className={styles.infoLeft}>
-          <h3>Категории:</h3>
-          <ul>
-            {profile?.categories?.map((category) => (
-              <li key={category}>{category}</li>
-            ))}
-          </ul>
-          <h3>Источники:</h3>
-          {profile.proof &&
-            profile.proof.length > 0 &&
-            profile.proof.map((proof) => (
-              <li key={proof.link}>
-                <a href={proof.link} target="_blank" rel="noopener noreferrer">
-                  {proof.description}
-                </a>
-              </li>
-            ))}
+        <PrevLineContent items={mediaItems} />
+        <div className={styles.infoBottom}>
+          <h3>Описание:</h3>
+          <p>{profile?.accusations}</p>
         </div>
+        <AdminButton
+          confirm={!profile?.active}
+          deleteB={true}
+          type={profile?.parent_id ? 'crud-edit' : 'crud'}
+          id={id}
+          admin={admin}
+        />
       </div>
-      <PrevLineContent items={mediaItems} />
-      <div className={styles.infoBottom}>
-        <h3>Описание:</h3>
-        <p>{profile?.accusations}</p>
-      </div>
-      <AdminButton
-        confirm={!profile?.active}
-        deleteB={true}
-        type={profile?.parent_id ? 'crud-edit' : 'crud'}
-        id={id}
-        admin={admin}
-      />
-    </div>
+    </>
   );
 };

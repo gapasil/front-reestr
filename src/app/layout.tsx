@@ -1,8 +1,4 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import { Provider } from 'react-redux';
-import store from '@/store/store';
+import React from 'react';
 import '@/styles/globals.scss';
 import '@/styles/layout.scss';
 import { Header } from '@/components/containers/header/header';
@@ -10,80 +6,68 @@ import { MainSideMenu } from '@/components/containers/mainSideMenu/mainSideMenu'
 import { Footer } from '@/components/containers/footer/footer';
 import AuthForm from '@/components/containers/authForm/authForm';
 import InfModal from '@/components/UI/infModal/infModal';
-import Head from 'next/head';
+// import Head from 'next/head';
+import { Metadata } from 'next';
+import ClientProvider from '@/components/containers/clientProvider/clientProvider';
+// import Link from 'next/link';
+// import Image from 'next/image';
+import Script from 'next/script';
+
+export const metadata: Metadata = {
+  title: 'Реестр русофобов',
+  description: 'Узнать или добавить в реестр у нас на сайте. Реестр русофобов',
+  keywords:
+    'реестр, русофобы, список, информация, реестр русофобов, русофоб, укронацист, бендеровец, бендеровцы',
+  authors: {
+    url: 'https://t.me/gapasil',
+    name: 'gapasil',
+  },
+};
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  useEffect(() => {
-    // Функция для отслеживания изменения размера окна
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 780);
-    };
-
-    // Устанавливаем начальное значение
-    handleResize();
-
-    // Подписываемся на изменение размера окна
-    window.addEventListener('resize', handleResize);
-
-    // Убираем обработчик при размонтировании компонента
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   return (
-    <Provider store={store}>
-      <Head>
-        <title>Реестр русофобов - Узнайте о текущем списке</title>
-        <meta
-          name="description"
-          content="Реестр русофобов — информация о текущем списке. Узнайте больше на нашем сайте."
+    <html lang="ru">
+      <head>
+        <link
+          rel="icon"
+          type="image/png"
+          href="/favicon-96x96.png"
+          sizes="96x96"
         />
-        <meta
-          name="keywords"
-          content="реестр, русофобы, список, информация, реестр русофобов"
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
         />
-        <meta name="author" content="gapasil" />
-      </Head>
-      <html lang="ru">
-        <body>
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-8H8XRFPDZ9"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-8H8XRFPDZ9');
+        `}
+      </Script>
+      <body>
+        <ClientProvider>
           <InfModal />
           <AuthForm />
           <Header />
           <main className="container-layout">
-            {!isMobile && <MainSideMenu />}
+            <MainSideMenu />
             <div className="content-layout">{children}</div>
-            <div
-              className="block-donate"
-              style={{
-                maxWidth: '160px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '20px',
-              }}
-            >
-              <h3 style={{ margin: '0px' }}>Поддержать проект:</h3>
-              <div
-                style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}
-              >
-                <h3>BTC кошелек:</h3>
-                <p style={{ wordWrap: 'break-word', maxWidth: '100px' }}>
-                  bc1qphtkk4jhxrar09ujntmzlw66vjhe3pu4vl3fpw
-                </p>
-                <img
-                  id="bitcoin-qr"
-                  src="https://qr.crypt.bot/?url=bc1qphtkk4jhxrar09ujntmzlw66vjhe3pu4vl3fpw"
-                  alt="QR Code"
-                  style={{ maxWidth: '100px' }}
-                />
-              </div>
-            </div>
           </main>
           <Footer />
-        </body>
-      </html>
-    </Provider>
+        </ClientProvider>
+      </body>
+    </html>
   );
 };
 

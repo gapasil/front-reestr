@@ -13,11 +13,11 @@
     display: flex; // Выравнивание изображения по центру
     justify-content: center; // Горизонтальное выравнивание
     align-items: center; // Вертикальное выравнивание
-  }
 
-  .imageSlide {
-    text-align: center;
-    img {
+    .imageSlide {
+      text-align: center;
+      object-fit: cover;
+      overflow: hidden;
       width: 100%;
       height: auto;
       border-radius: 8px;

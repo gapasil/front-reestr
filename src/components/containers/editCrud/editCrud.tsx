@@ -19,7 +19,6 @@ import VideoUpload from '../../UI/videoUpload/videoUpload';
 
 import {
   handleChange,
-  // handleSocialMediaChange,
   handleCategoryChange,
   handleAddCategory,
   handleRemoveCategory,
@@ -29,6 +28,7 @@ import {
 import OldImage from './components/oldImage';
 import OldVideo from './components/oldVideo';
 import { Captcha } from '../captcha/captcha';
+import RoundToggle from '@/components/UI/roundToggle/RoundToggle';
 
 type ValidationError = Record<string, string>;
 
@@ -47,6 +47,8 @@ export const EditCrud: FC<{ initProp: CrudCreate; id: string }> = ({
 
   const [captchaValue, setCaptchaValue] = useState<string | null>(null); // State for CAPTCHA
   const [remove, setRemove] = useState(false);
+
+  const [stateFetch, setStateFetch] = useState(false);
 
   const captchaCb = (value: null | string) => {
     setCaptchaValue(value);
@@ -175,8 +177,10 @@ export const EditCrud: FC<{ initProp: CrudCreate; id: string }> = ({
       formData.append('existingVideoUrls', JSON.stringify(oldVideos));
 
       try {
+        setStateFetch(true);
         formData.append('captchaValue', captchaValue);
         const responseData = await submitEditForReview(id, formData); // ожидание ответа от функции createCrud
+        setStateFetch(false);
         console.log(responseData);
         dispatch(showInfModal('Данные успешно отправлены на модерацию!'));
         setData(initProp);
@@ -186,6 +190,7 @@ export const EditCrud: FC<{ initProp: CrudCreate; id: string }> = ({
         setCaptchaValue(null);
         setRemove(!remove);
       } catch (error) {
+        setStateFetch(false);
         setBackendError(error as string);
         console.error('Ошибка:', error); // Логирование ошибки
       }
@@ -286,7 +291,7 @@ export const EditCrud: FC<{ initProp: CrudCreate; id: string }> = ({
               value={data.birthdate}
               onChange={(e) => handleChangeWrapped(e, 'birthdate')}
               error={errors.birthdate}
-              placeholder="YYYY-MM-DD"
+              placeholder="ГГГГ-MM-ДД"
             />
             <TextInput
               label="Место рождения"
@@ -332,6 +337,18 @@ export const EditCrud: FC<{ initProp: CrudCreate; id: string }> = ({
                 onChange={(e) => handleSocialMediaChangeWrapped(e, 'instagram')}
               />
             </div> */}
+            <div className={styles.toggleContainer}>
+              <label>Есть ли персональные данные:</label>
+              <RoundToggle
+                value={data.personaldata}
+                onChange={(value) =>
+                  setData((prevData) => ({
+                    ...prevData,
+                    personaldata: value,
+                  }))
+                }
+              />
+            </div>
           </div>
           <div className={styles.infoLeft}>
             <h3>Категории:</h3>
@@ -421,7 +438,8 @@ export const EditCrud: FC<{ initProp: CrudCreate; id: string }> = ({
           placeholder="Обвинения"
         />
         <Captcha cb={captchaCb} remove={remove} />
-        <button type="submit">Сохранить</button>
+        {stateFetch && <p className="highlightP">Загрузка данных...</p>}
+        {stateFetch ? <></> : <button type="submit">Сохранить</button>}
         {isMenuAuthOpen && <p className="errorP">Необходимо авторизоваться</p>}
         {!isMenuAuthOpen && backendError && (
           <p className="errorP">{backendError}</p>

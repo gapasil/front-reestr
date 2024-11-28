@@ -21,7 +21,7 @@ export const schemaRegistration = z
       .min(6, { message: 'Необходимо подтвердить пароль' }),
     name: z
       .string()
-      .min(4, { message: 'Имя должно содержать минимум 4 символа' })
+      .min(2, { message: 'Имя должно содержать минимум 2 символа' })
       .optional(),
     // phone: z
     //   .string()

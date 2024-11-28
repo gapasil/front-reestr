@@ -14,7 +14,7 @@ export const Footer: FC = () => {
       <p>
         Telegram:{' '}
         <a href={telegram} target="_blank" rel="noopener noreferrer">
-          @gapasil
+          @reestr_rusofobov
         </a>
       </p>
     </footer>
