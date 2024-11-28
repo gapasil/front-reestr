@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import styles from './footer.module.scss';
 
 export const Footer: FC = () => {
-  const email = process.env.NEXT_PUBLIC_EMAIL; // Получаем email из переменной окружения
-  const telegram = process.env.NEXT_PUBLIC_TELEGRAM; // Получаем Telegram из переменной окружения
+  // const email = process.env.NEXT_PUBLIC_EMAIL; // Получаем email из переменной окружения
+  // const telegram = process.env.NEXT_PUBLIC_TELEGRAM; // Получаем Telegram из переменной окружения
 
   return (
     <footer className={styles.container_footer}>
       <p>2024 Реестр русофобов</p>
-      <p>
+      {/* <p>
         Контакт: <a href={`mailto:${email}`}>{email}</a>
       </p>
       <p>
@@ -16,7 +16,7 @@ export const Footer: FC = () => {
         <a href={telegram} target="_blank" rel="noopener noreferrer">
           @reestr_rusofobov
         </a>
-      </p>
+      </p> */}
     </footer>
   );
 };
