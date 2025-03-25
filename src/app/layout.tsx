@@ -14,13 +14,14 @@ import ClientProvider from '@/components/containers/clientProvider/clientProvide
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'Реестр русофобов',
-  description: 'Узнать или добавить в реестр у нас на сайте. Реестр русофобов',
+  title: 'Реестр русофобов | Список и информация о русофобии',
+  description:
+    'Реестр русофобов: список лиц, обвиняемых в русофобии. Узнайте подробности или добавьте информацию на наш сайт.',
   keywords:
-    'реестр, русофобы, список, информация, реестр русофобов, русофоб, укронацист, бендеровец, бендеровцы',
+    'реестр русофобов, список русофобов, информация о русофобии, добавить в реестр, антироссийские действия',
   authors: {
-    url: 'https://t.me/gapasil',
-    name: 'gapasil',
+    url: 'reestr.rusofobov@mail.ru',
+    name: 'Команда Реестра русофобов',
   },
 };
 

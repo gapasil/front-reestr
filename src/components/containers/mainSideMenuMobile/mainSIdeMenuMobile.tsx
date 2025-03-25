@@ -37,6 +37,15 @@ export const MainSideMenuMobile: FC = () => {
         )}
         {admin && (
           <li
+            className={`${styles.menuItem} ${pathname === '/candidate' ? styles.active : ''}`}
+          >
+            <Link href="/candidate" className={styles.link}>
+              Кандидаты
+            </Link>
+          </li>
+        )}
+        {admin && (
+          <li
             className={`${styles.menuItem} ${pathname === '/dispute' ? styles.active : ''}`}
           >
             <Link href="/dispute" className={styles.link}>

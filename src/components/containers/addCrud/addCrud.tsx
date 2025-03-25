@@ -20,6 +20,7 @@ import { DecodedToken } from '@/services/authService';
 import VideoUpload from '../../UI/videoUpload/videoUpload';
 import { Captcha } from '../captcha/captcha';
 import RoundToggle from '@/components/UI/roundToggle/RoundToggle';
+import { User } from '@/types/user';
 
 type ValidationError = Record<string, string>;
 const initData = {
@@ -67,7 +68,7 @@ export const AddCrud: FC = () => {
 
   useEffect(() => {
     let decodeTokenUser: DecodedToken | null = null;
-    const token = getItem('user')?.token;
+    const token = getItem<User>('user')?.token;
 
     if (token) {
       try {
@@ -270,6 +271,7 @@ export const AddCrud: FC = () => {
               value={data.name}
               onChange={(e) => handleChange(e, 'name')}
               error={errors.name}
+              placeholder="Имя фамилия"
             />
             {/* <NumberInput
               label="Возраст"
@@ -296,30 +298,35 @@ export const AddCrud: FC = () => {
               value={data.birthplace}
               onChange={(e) => handleChange(e, 'birthplace')}
               error={errors.birthplace}
+              placeholder="Город, страна"
             />
             <TextInput
               label="Гражданство"
               value={data.citizenship}
               onChange={(e) => handleChange(e, 'citizenship')}
               error={errors.citizenship}
+              placeholder="Гражданства цели"
             />
             <TextInput
               label="Телефон"
               value={data.phone || ''}
               onChange={(e) => handleChange(e, 'phone')}
               error={errors.phone}
+              placeholder="+ХХХХХХХХХХ"
             />
             <TextInput
               label="Email"
               value={data.email}
               onChange={(e) => handleChange(e, 'email')}
               error={errors.email}
+              placeholder="email@gmail.com"
             />
             <TextInput
               label="Адрес"
               value={data.address}
               onChange={(e) => handleChange(e, 'address')}
               error={errors.address}
+              placeholder="Местонахождение цели"
             />
             {/* <div className={styles.socialMedia}>
               <strong>Социальные медиа:</strong>

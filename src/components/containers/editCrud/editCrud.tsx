@@ -29,6 +29,7 @@ import OldImage from './components/oldImage';
 import OldVideo from './components/oldVideo';
 import { Captcha } from '../captcha/captcha';
 import RoundToggle from '@/components/UI/roundToggle/RoundToggle';
+import { User } from '@/types/user';
 
 type ValidationError = Record<string, string>;
 
@@ -113,7 +114,7 @@ export const EditCrud: FC<{ initProp: CrudCreate; id: string }> = ({
 
   useEffect(() => {
     let decodeTokenUser: DecodedToken | null = null;
-    const token = getItem('user')?.token;
+    const token = getItem<User>('user')?.token;
 
     if (token) {
       try {
@@ -272,6 +273,7 @@ export const EditCrud: FC<{ initProp: CrudCreate; id: string }> = ({
               value={data.name}
               onChange={(e) => handleChangeWrapped(e, 'name')}
               error={errors.name}
+              placeholder="Имя фамилия"
             />
             {/* <NumberInput
               label="Возраст"
@@ -298,31 +300,35 @@ export const EditCrud: FC<{ initProp: CrudCreate; id: string }> = ({
               value={data.birthplace}
               onChange={(e) => handleChangeWrapped(e, 'birthplace')}
               error={errors.birthplace}
+              placeholder="Город, страна"
             />
             <TextInput
               label="Гражданство"
               value={data.citizenship}
               onChange={(e) => handleChangeWrapped(e, 'citizenship')}
               error={errors.citizenship}
+              placeholder="Гражданства"
             />
             <TextInput
               label="Телефон"
               value={data.phone || ''}
               onChange={(e) => handleChangeWrapped(e, 'phone')}
               error={errors.phone}
-              placeholder="Введите номер телефона"
+              placeholder="+ХХХХХХХХХХ"
             />
             <TextInput
               label="Email"
               value={data.email}
               onChange={(e) => handleChangeWrapped(e, 'email')}
               error={errors.email}
+              placeholder="email@gmail.com"
             />
             <TextInput
               label="Адрес"
               value={data.address}
               onChange={(e) => handleChangeWrapped(e, 'address')}
               error={errors.address}
+              placeholder="Местонахождение цели"
             />
             {/* <div className={styles.socialMedia}>
               <strong>Социальные медиа:</strong>

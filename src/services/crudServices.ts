@@ -1,4 +1,5 @@
 import { Crud } from '@/types/Crud';
+import { User } from '@/types/user';
 import { handleApiError } from '@/utils/apiErrorHandler';
 import { getItem } from '@/utils/localStorageUtils';
 import axios from 'axios';
@@ -8,7 +9,7 @@ const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/';
 export const createCrud = async (
   formData: FormData,
 ): Promise<Crud | undefined | string> => {
-  const token = getItem('user');
+  const token = getItem<User>('user');
   try {
     const response = await axios.post(`${API}api/cruds`, formData, {
       headers: {
@@ -26,7 +27,7 @@ export const createCrud = async (
 export const updateStatusCrud = async (
   id: string,
 ): Promise<Crud | undefined> => {
-  const token = getItem('user');
+  const token = getItem<User>('user');
   try {
     const response = await axios.patch(
       `${API}api/cruds/${id}`,
@@ -47,7 +48,7 @@ export const updateStatusCrud = async (
 export const deleteStatusCrud = async (
   id: string,
 ): Promise<Crud | undefined> => {
-  const token = getItem('user');
+  const token = getItem<User>('user');
   try {
     const response = await axios.delete(`${API}api/cruds/${id}`, {
       headers: {
@@ -66,7 +67,7 @@ export const submitEditForReview = async (
   id: string,
   formData: FormData,
 ): Promise<Crud | undefined> => {
-  const token = getItem('user');
+  const token = getItem<User>('user');
   try {
     const response = await axios.post(`${API}api/cruds/${id}/edit`, formData, {
       headers: {
@@ -83,7 +84,7 @@ export const submitEditForReview = async (
 
 // Функция для подтверждения изменений администратором
 export const approveEdit = async (id: string): Promise<Crud | undefined> => {
-  const token = getItem('user');
+  const token = getItem<User>('user');
   try {
     const response = await axios.patch(
       `${API}api/cruds/${id}/approve`,

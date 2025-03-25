@@ -12,6 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAppSelector } from '@/hooks/ReduxHooks';
 import { useCheckAdmin } from '@/hooks/userHooks';
+import { User } from '@/types/user';
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/';
 
@@ -25,7 +26,7 @@ export const ProfileDisput: FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = getItem('user');
+        const token = getItem<User>('user');
         const response = await axios.get(`${API}api/disput/${id}`, {
           headers: {
             'Content-Type': 'multipart/form-data', // Установите заголовок для FormData
@@ -67,7 +68,7 @@ export const ProfileDisput: FC<{ id: string }> = ({ id }) => {
   return (
     <div className={styles.container}>
       {disput.images.length > 1 ? (
-        <Carousel images={disput.images} />
+        <Carousel images={disput.images} meta="Фотографий спора" />
       ) : (
         <Image
           key={disput.images[0]}
@@ -104,7 +105,7 @@ export const ProfileDisput: FC<{ id: string }> = ({ id }) => {
           </p>
         </div>
       </div>
-      <PrevLineContent items={mediaItems} />
+      <PrevLineContent items={mediaItems} meta="Фотографий спора" />
       <AdminButton
         confirm={false} // Проверяем статус диспута
         deleteB={true}

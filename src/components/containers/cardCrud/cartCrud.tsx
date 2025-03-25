@@ -15,16 +15,18 @@ export const CartCrud: FC<ExtendedCrud> = ({
   accusations,
   id,
   admin,
+  translit_name,
 }) => {
   return (
-    <div className={styles.card}>
+    <article className={styles.card}>
       {/* Фото и имя */}
-      <div className={styles.header}>
+      <section className={styles.header}>
         <div className={styles.photoContainer}>
           {photourl.length > 0 && (
             <Image
               src={`${API}${photourl[0]}`}
-              alt={`${name}'s photo`}
+              alt={`${name} фото`}
+              title={`${name} ${categories[0]}`}
               width={250}
               height={250}
               quality={100}
@@ -34,25 +36,48 @@ export const CartCrud: FC<ExtendedCrud> = ({
           )}
         </div>
         <h2>{name}</h2>
-      </div>
+      </section>
 
       {/* Категории и обвинения */}
       <section className={styles.info}>
         <div className={styles.infoCategory}>
           <strong>Категории: </strong>
           <ul>
-            {categories.map((category, index) => (
-              <li key={index}>{category}</li>
-            ))}
+            {categories.map((category, index) => {
+              if (index < 2) {
+                return <li key={category}>{category}</li>;
+              }
+              return null;
+            })}
+            {categories.length > 2 ? (
+              <details>
+                <summary>
+                  <span>Больше категорий</span>
+                  <span className={styles.arrowDrop}></span>
+                </summary>
+                <ul className={styles.detailsCata}>
+                  {categories.map((category, index) => {
+                    if (index >= 2) {
+                      return <li key={category}>{category}</li>;
+                    }
+                    return null;
+                  })}
+                </ul>
+              </details>
+            ) : (
+              <></>
+            )}
           </ul>
         </div>
 
-        <p>{truncateString(accusations, 150)}</p>
+        <p className={styles.accusationsText}>
+          {truncateString(accusations, 150)}
+        </p>
       </section>
       <div className={styles.cardSeparator}></div>
       {/* Кнопка "Подробнее" */}
-      <div className={styles.buttonContainer}>
-        <Link href={`/mraz/${id}`} className={styles.detailsButton}>
+      <section className={styles.buttonContainer}>
+        <Link href={`/mraz/${translit_name}`} className={styles.detailsButton}>
           Подробнее
         </Link>
         <AdminButton
@@ -62,7 +87,7 @@ export const CartCrud: FC<ExtendedCrud> = ({
           deleteB={true}
           admin={admin}
         />
-      </div>
-    </div>
+      </section>
+    </article>
   );
 };

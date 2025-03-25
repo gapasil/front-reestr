@@ -1,4 +1,4 @@
-@import '../../styles/variable.scss';
+@import '../../../styles/variable.scss';
 
 .containerCart {
   display: flex;
@@ -29,4 +29,19 @@
 .introText p strong {
   color: $highlighted-text;
   font-weight: bold; /* Выделение текста */
+}
+
+.link {
+  display: inline-block; // Делаем ссылку блочным элементом
+  padding: 10px 20px; // Внутренние отступы
+  background-color: $button-color-primary; // Основной цвет кнопки
+  color: $main-color-text !important; // Цвет текста
+  border: none; // Убираем рамку
+  border-radius: 5px; // Скругление углов
+  text-decoration: none; // Убираем подчеркивание
+  transition: background-color 0.3s ease; // Плавный переход цвета фона
+
+  &:hover {
+    background-color: $button-color-hover; // Цвет кнопки при наведении
+  }
 }

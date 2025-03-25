@@ -10,10 +10,12 @@ import { removeCrudInactive } from '@/store/slices/inactiveCrudSlice';
 import { removeCrud } from '@/store/slices/mainCrudSlice';
 import { deleteDisput } from '@/services/disputService';
 import { removeDisput } from '@/store/slices/disputSlice';
+import { deleteСandidate } from '@/services/candidateService';
+import { removeCandidate } from '@/store/slices/candidateSlice';
 
 interface AdminButtonProps {
   id: string;
-  type: 'crud' | 'dispute' | 'crud-edit';
+  type: 'crud' | 'dispute' | 'crud-edit' | 'candidate';
   deleteB: boolean;
   confirm: boolean;
   admin: boolean;
@@ -92,6 +94,16 @@ const AdminButton: React.FC<AdminButtonProps> = ({
         setNotification('Запись удалена');
         dispatch(removeCrudInactive(id));
         dispatch(removeCrud(id));
+      } catch (error) {
+        setBackendError(error as string);
+        console.error('Ошибка:', error); // Логирование ошибки
+      }
+    } else if (type === 'candidate') {
+      console.log(`Удаление карточки crud с ID: ${id}`);
+      try {
+        await deleteСandidate(id);
+        setNotification('Запись удалена');
+        dispatch(removeCandidate(id));
       } catch (error) {
         setBackendError(error as string);
         console.error('Ошибка:', error); // Логирование ошибки

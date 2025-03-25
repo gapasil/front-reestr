@@ -4,6 +4,7 @@ import inactiveCrudReducer from './slices/inactiveCrudSlice';
 import authAndRegFormReducer from './slices/authAndRegForm';
 import disputReducer from './slices/disputSlice';
 import infModalReducer from './UISlices/infModalSlice';
+import candidateReducer from './slices/candidateSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     authAndRegForm: authAndRegFormReducer,
     infModal: infModalReducer,
     disput: disputReducer,
+    candidate: candidateReducer,
   },
 });
 

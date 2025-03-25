@@ -3,6 +3,7 @@ import { getItem } from '@/utils/localStorageUtils';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { handleApiError } from './handleApiError';
+import { User } from '@/types/user';
 
 interface FetchParams {
   page: number;
@@ -74,7 +75,7 @@ export const fetchInactiveCruds = createAsyncThunk(
   'crud-inactive/fetchInactiveCruds',
   async ({ page, limit }: FetchParams, { rejectWithValue }) => {
     const url = `${API}api/cruds/inactive`;
-    const token = getItem('user')?.token;
+    const token = getItem<User>('user')?.token;
     try {
       return await fetchData(url, { page, limit }, token);
     } catch (error) {

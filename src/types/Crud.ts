@@ -6,6 +6,7 @@ export type ExtendedCrud = Crud & {
   active: boolean;
   parent_id?: string;
   admin: boolean;
+  translit_name: string;
 };
 
 interface CrudProof {

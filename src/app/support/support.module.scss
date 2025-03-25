@@ -26,7 +26,9 @@
     padding: 15px;
     padding-top: 0px;
     border-radius: 0 0 8px 8px;
-
+    a {
+      color: $highlighted-text;
+    }
     strong {
       color: $highlighted-text;
     }
@@ -42,4 +44,7 @@
   margin: 20px auto;
   width: 250px;
   height: auto;
+}
+.qrCode {
+  max-width: 150px;
 }

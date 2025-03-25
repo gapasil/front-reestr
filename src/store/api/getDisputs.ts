@@ -2,6 +2,7 @@ import { getItem } from '@/utils/localStorageUtils';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { handleApiError } from './handleApiError';
+import { User } from '@/types/user';
 
 interface FetchDisputsParams {
   page: number;
@@ -12,7 +13,7 @@ export const fetchDisputs = createAsyncThunk(
   'disput/fetchDisputs',
   async ({ page = 1, limit = 10 }: FetchDisputsParams, { rejectWithValue }) => {
     const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/';
-    const token = getItem('user');
+    const token = getItem<User>('user');
 
     try {
       // Используем page и limit в запросе

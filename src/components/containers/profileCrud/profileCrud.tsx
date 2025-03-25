@@ -30,7 +30,9 @@ export const ProfileCrud: FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API}api/cruds/${id}`);
+        const response = await axios.get(
+          `${API}api/cruds/search-by-name?translit_name=${id}`,
+        );
         setCruds(response.data);
       } catch (error) {
         console.error('Ошибка при получении данных:', error);
@@ -85,12 +87,16 @@ export const ProfileCrud: FC<{ id: string }> = ({ id }) => {
         />
       ))} */}
         {profile.photourl.length > 1 ? (
-          <Carousel images={profile.photourl} />
+          <Carousel
+            images={profile.photourl}
+            meta={profile?.name ? profile?.name : 'default'}
+          />
         ) : (
           <Image
             key={profile.photourl[0]}
             src={`${API}${profile.photourl[0]}`}
-            alt={`${profile.name}'s photo`}
+            alt={`${profile.name} фото`}
+            title={`${profile.name}`}
             className={styles.photo}
             style={{ objectFit: 'cover' }}
             width={250}
@@ -186,7 +192,10 @@ export const ProfileCrud: FC<{ id: string }> = ({ id }) => {
               ))}
           </div>
         </div>
-        <PrevLineContent items={mediaItems} />
+        <PrevLineContent
+          items={mediaItems}
+          meta={profile?.name ? profile?.name : 'default'}
+        />
         <div className={styles.infoBottom}>
           <h3>Описание:</h3>
           <p>{profile?.accusations}</p>

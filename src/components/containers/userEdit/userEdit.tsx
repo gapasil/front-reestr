@@ -4,6 +4,7 @@ import { adminUser } from '@/services/userService'; // Импортируем ф
 import axios from 'axios';
 import { API } from '@/variable/Api';
 import { getItem } from '@/utils/localStorageUtils';
+import { User } from '@/types/user';
 
 const UserEdit: React.FC = () => {
   const [userId, setUserId] = useState<string>('');
@@ -40,7 +41,7 @@ const UserEdit: React.FC = () => {
   };
 
   useEffect(() => {
-    const token = getItem('user');
+    const token = getItem<User>('user');
     const fetchData = async () => {
       try {
         const url = `${API}api/user/usersSummary`;

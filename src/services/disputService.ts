@@ -1,4 +1,5 @@
 import { Crud } from '@/types/Crud';
+import { User } from '@/types/user';
 import { handleApiError } from '@/utils/apiErrorHandler';
 import { getItem } from '@/utils/localStorageUtils';
 import axios from 'axios';
@@ -8,7 +9,7 @@ const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/';
 export const createDisput = async (
   formData: FormData,
 ): Promise<Crud | undefined> => {
-  const token = getItem('user');
+  const token = getItem<User>('user');
   try {
     const response = await axios.post(`${API}api/disput`, formData, {
       headers: {
@@ -24,7 +25,7 @@ export const createDisput = async (
 };
 
 export const deleteDisput = async (id: string): Promise<void> => {
-  const token = getItem('user');
+  const token = getItem<User>('user');
   try {
     await axios.delete(`${API}api/disput/${id}`, {
       headers: {

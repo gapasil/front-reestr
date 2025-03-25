@@ -13,6 +13,7 @@ import ImageUpload from '../../UI/ImageUpload/imageUpload';
 import VideoUpload from '../../UI/videoUpload/videoUpload';
 import { createDisput } from '@/services/disputService';
 import { Captcha } from '../captcha/captcha';
+import { User } from '@/types/user';
 
 type ValidationError = Record<string, string>;
 
@@ -46,7 +47,7 @@ export const AddDisput: FC = () => {
 
   useEffect(() => {
     let decodeTokenUser: DecodedToken | null = null;
-    const token = getItem('user')?.token;
+    const token = getItem<User>('user')?.token;
 
     if (token) {
       try {

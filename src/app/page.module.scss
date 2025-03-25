@@ -56,6 +56,9 @@
         margin-bottom: 10px; // Отступ для элементов списка
       }
     }
+    a {
+      color: $highlighted-text;
+    }
   }
 }
 
@@ -67,7 +70,7 @@
     display: inline-block; // Делаем ссылку блочным элементом
     padding: 10px 20px; // Внутренние отступы
     background-color: $button-color-primary; // Основной цвет кнопки
-    color: $main-color-text; // Цвет текста
+    color: $main-color-text !important; // Цвет текста
     border: none; // Убираем рамку
     border-radius: 5px; // Скругление углов
     text-decoration: none; // Убираем подчеркивание

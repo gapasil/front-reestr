@@ -7,6 +7,7 @@ import Image from 'next/image';
 
 interface CarouselProps {
   images: string[];
+  meta: string;
 }
 
 const activeDotStyle = {
@@ -19,7 +20,7 @@ const inactiveDotStyle = {
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/';
 
-const Carousel: FC<CarouselProps> = ({ images }) => {
+const Carousel: FC<CarouselProps> = ({ images, meta }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -48,7 +49,8 @@ const Carousel: FC<CarouselProps> = ({ images }) => {
               height={200}
               width={200}
               src={`${API}${image}`}
-              alt={`Slide ${index + 1}`}
+              alt={`${meta} ${index + 1} фото`}
+              title={`${meta} ${index + 1}`}
               className="imageSlide"
             />
           </div>

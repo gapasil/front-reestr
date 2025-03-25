@@ -1,3 +1,4 @@
+import { User } from '@/types/user';
 import { handleApiError } from '@/utils/apiErrorHandler';
 import { getItem } from '@/utils/localStorageUtils';
 import axios from 'axios';
@@ -11,7 +12,7 @@ interface AdminUserResponse {
 export const adminUser = async (
   userId: string,
 ): Promise<AdminUserResponse | undefined> => {
-  const token = getItem('user');
+  const token = getItem<User>('user');
 
   try {
     const response = await axios.post(
@@ -31,7 +32,7 @@ export const adminUser = async (
 };
 
 export const getUser = async (): Promise<AdminUserResponse | undefined> => {
-  const token = getItem('user');
+  const token = getItem<User>('user');
 
   try {
     const response = await axios.post(`${API}api/user/userId`, {

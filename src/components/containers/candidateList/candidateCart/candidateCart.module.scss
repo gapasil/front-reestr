@@ -1,4 +1,4 @@
-@import '../../../styles/variable.scss';
+@import '../../../../styles/variable.scss';
 
 .card {
   display: flex;
@@ -17,10 +17,6 @@
     text-align: start;
     margin: 0;
     font-size: 1.5rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 30px;
   }
   p {
     text-align: start;
@@ -31,21 +27,10 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    overflow: hidden;
-    max-height: 70px;
   }
 
   li {
     margin: 5px 0;
-  }
-
-  span {
-    overflow: visible;
-  }
-
-  details {
-    cursor: pointer;
-    user-select: none;
   }
 }
 
@@ -84,7 +69,6 @@
   flex-direction: column;
   align-items: start;
   gap: 10px;
-  height: 90px;
   li {
     margin-left: 5px;
     text-align: start;
@@ -120,31 +104,28 @@
   height: 1px;
   background-color: $button-color-primary;
 }
+.infoLeft ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 5px 0; // Установлено правильное значение отступа
 
-.arrowDrop {
-  position: relative;
-  display: inline-block;
-  transition: transform 0.3s;
-  /* Когда details открыты, стрелочка переворачивается */
-  details[open] .arrowDrop {
-    transform: rotate(360deg);
-  }
-
-  /* Стили для скрытого списка */
-  details > ul {
-    list-style-type: none;
-    padding-left: 20px;
-  }
-
-  details summary {
-    cursor: pointer;
-    font-weight: bold;
+  li {
+    color: $highlighted-text-error; // Применен цвет из переменной
+    margin: 5px;
   }
 }
-
-.detailsCata {
-  position: absolute;
-  background: $main-surface-primary;
-  max-height: 100% !important;
-  max-width: 220px;
+.infoLeft {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style-type: none;
+  padding: 0;
+  li {
+    color: $highlighted-text-error; // Применен цвет из переменной
+    margin: 5px;
+    a {
+      color: $highlighted-text; // Применен цвет из переменной
+    }
+  }
 }

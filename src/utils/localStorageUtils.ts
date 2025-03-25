@@ -1,5 +1,3 @@
-import { User } from '@/types/user';
-
 // Сохранение данных в localStorage
 export const setItem = <T>(key: string, value: T): void => {
   try {
@@ -11,12 +9,10 @@ export const setItem = <T>(key: string, value: T): void => {
 };
 
 // Извлечение данных из localStorage
-export const getItem = (key: string): User | undefined => {
+export const getItem = <T>(key: string): T | undefined => {
   try {
     const serializedValue = localStorage.getItem(key);
-    return serializedValue === null
-      ? undefined
-      : (JSON.parse(serializedValue) as User);
+    return serializedValue ? (JSON.parse(serializedValue) as T) : undefined;
   } catch (error) {
     console.error('Ошибка при извлечении из localStorage:', error);
     return undefined;

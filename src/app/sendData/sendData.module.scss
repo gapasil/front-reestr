@@ -1,0 +1,28 @@
+@import '../../styles/variable.scss';
+
+.button {
+  background-color: $button-color-primary;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+
+  &:hover {
+    background-color: $button-color-hover;
+    transform: scale(
+      1.05
+    ); // Легкое увеличение при наведении для динамичного эффекта
+  }
+}
+
+.infoBlock {
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
+  background-color: $main-surface-primary;
+}
